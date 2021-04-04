@@ -1557,8 +1557,8 @@ if __name__ == '__main__':
         #shuffling the deck and placing a bet:
         print('\n'*100)
         print('New round!')
-        current_deck = Deck()
-        current_deck.shuffle()
+        playing_deck = Deck()
+        playing_deck.shuffle()
         plr.place_bet('Main Wager')
         # asking to press enter to continue:
         press_enter_to_continue()
@@ -1570,19 +1570,19 @@ if __name__ == '__main__':
         dlr.start_hand()
 
         #dealing initial 2 cards to both player and dealer and displaying the cards
-        plr.hand.add_card_from_deck(current_deck)
-        dlr.hand.add_card_from_deck(current_deck)
+        plr.hand.add_card_from_deck(playing_deck)
+        dlr.hand.add_card_from_deck(playing_deck)
 
-        plr.hand.add_card_from_deck(current_deck)
-        dlr.hand.add_card_from_deck(current_deck)
+        plr.hand.add_card_from_deck(playing_deck)
+        dlr.hand.add_card_from_deck(playing_deck)
 
         #playing a round:
-        plr_scores, plr_naturals, plr_wagers, surrender = players_turn(plr, dlr, current_deck)
+        plr_scores, plr_naturals, plr_wagers, surrender = players_turn(plr, dlr, playing_deck)
 
         #checking for surrender:
         if not surrender:
             #dealer's turn:
-            dlr_score, dlr_natural = dealers_turn(dlr, plr, plr_scores, plr_naturals, current_deck)
+            dlr_score, dlr_natural = dealers_turn(dlr, plr, plr_scores, plr_naturals, playing_deck)
             #checking the outcome and adding winnings:
             check_outcome_and_add_winnings(plr, plr_scores, plr_naturals, plr_wagers, dlr_score, dlr_natural)
         else:
