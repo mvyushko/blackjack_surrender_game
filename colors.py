@@ -43,5 +43,5 @@ class colors:
 
 
 if __name__ == '__main__':
-	print(colors.bg.green, "SKk", colors.fg.red, "Amartya")
-	print(colors.bg.lightgrey, "SKk", colors.fg.red, "Amartya")
+	print(colors.bg.green, "Blackjack", colors.fg.red, "Surrender", colors.fg.pink)
+	print(colors.bg.lightgrey, "Blackjack", colors.fg.red, "Surrender")
