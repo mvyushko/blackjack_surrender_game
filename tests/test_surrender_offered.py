@@ -84,4 +84,15 @@ class TestCases(unittest.TestCase):
         result = surrender_offered(test_hand, test_dlr_card)
         self.assertEqual(result, False)
 
+    def test_sr_offered_15_dealers_Q(self):
+        """
+        testing the surrender_offered(hand, dealer_upcard) function with a 7 and an 8 in hand and a Q dealer upcard
+        """
+        test_hand = Hand()
+        test_hand.cards.extend([Card('♥', '7'), Card('♦', '8')])
+        test_hand.score = 15
+        test_dlr_card = 'Q'
+        result = surrender_offered(test_hand, test_dlr_card)
+        self.assertEqual(result, True)
+
 

@@ -319,7 +319,7 @@ def surrender_offered(hand, dealer_upcard):
     if hand.score in [14, 15, 16]:
 
         #checking if Dealer's upcard is a 10 or an Ace:
-        if dealer_upcard == 'A' or dealer_upcard == '10':
+        if dealer_upcard in ['10', 'J', 'Q', 'K', 'A']:
             return True
         else:
             return False
@@ -633,15 +633,15 @@ class HumanPlayer(Player):
         :type bet: str
         """
         if bet == 'Insurance':
-            bet_type = ' Insurance'
+            bet_name = ' Insurance'
         elif bet == 'Main Wager':
-            bet_type = ''
+            bet_name = ''
 
         bet_amount = 0
 
         #while loop checking if bet has been placed:
         while bet_amount == 0:
-            print(f'Please place your{bet_type} bet!')
+            print(f'Please place your{bet_name} bet!')
 
             #for loop over all chip colors/values:
             for color in chip_colors:
@@ -697,8 +697,6 @@ class HumanPlayer(Player):
         print('\n')
         #display chips in all HumanPlayer's wagers:
         self.display_chips(*self.wagers.keys())
-        #asking to press enter to continue:
-        press_enter_to_continue()
 
     def double_wager(self, move, split_wager_number = 0, new_split_wager_number = 1):
         """
@@ -1163,8 +1161,8 @@ def players_turn(player, dealer, deck):
         else:
             natural = False
 
-            #checking if surrender is allowed on this hand:
-            if hand.type == 'Normal' and dealer.hand.score != 21:
+            #checking if surrender is possible on this hand:
+            if hand.type == 'Normal' and dealer.hand.score != 21 and player.wagers[wager_name]['Amount'] > 1:
 
                 #checking if player has been dealt a 14, 15, 16, or 17:
                 if surrender_offered(hand, dealer.hand.cards[0].rank):
@@ -1561,6 +1559,8 @@ if __name__ == '__main__':
         current_deck = Deck()
         current_deck.shuffle()
         plr.place_bet('Main Wager')
+        # asking to press enter to continue:
+        press_enter_to_continue()
 
         #creating a "Normal" Hand object for player:
         plr.start_hand()
