@@ -1,7 +1,29 @@
 import random
 import math
-from colors import colors
-from msvcrt import getch
+import sys
+
+#checking the platform:
+if sys.platform.startswith('win'):
+    #when running in Windows, use colorama for colored output:
+    from colorama import init
+    init()
+    from colorama import Fore, Back, Style
+    #colors for output formatting:
+    pink = Fore.LIGHTMAGENTA_EX
+    red = Fore.LIGHTRED_EX
+    green = Fore.GREEN
+    orange = Back.YELLOW + Fore.RED
+    reset = Style.RESET_ALL
+
+else:
+    #use the colors module:
+    from colors import colors
+    #colors for output formatting:
+    pink = colors.fg.pink
+    red = colors.fg.red
+    green = colors.fg.green
+    orange = colors.fg.orange
+    reset = colors.reset
 
 # tuple containing all chip colors:
 chip_colors = ('Orange', 'Green', 'Red', 'Pink', 'White')
@@ -13,8 +35,8 @@ chip_values = {'White': 1, 'Pink': 2.5, 'Red': 5, 'Green': 25, 'Orange': 50}
 empty = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
 # dictionary containing chip symbols (letters 'O' of corresponding color, black letter 'O'  for a 'White' chip):
-chip_symbols = {'White': colors.fg.black + 'O', 'Pink': colors.fg.pink + 'O', 'Red': colors.fg.red + 'O',
-                'Green': colors.fg.green + 'O', 'Orange': colors.fg.orange + 'O'}
+chip_symbols = {'White': reset + 'O', 'Pink': pink + 'O', 'Red': red + 'O',
+                'Green': green + 'O', 'Orange': orange + 'O'}
 
 # tuples containing all card suits and ranks:
 suits = ('♥', '♦', '♣', '♠')
@@ -28,7 +50,7 @@ card_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '
 patterns = {'top': ' ____ ', 'upper': '|    |', 'left': '| ', 'left_10': '|', 'right': ' |', 'bottom': '|____|',
             'space': ' '}
 # dictionary containing line-by-line face-down card image printing patterns:
-display_face_down = {1: ' ____ ', 2: '|////|', 3: '|////|', 4: '|̲/̲/̲/̲/|'}
+display_face_down = {1: ' ____ ', 2: '|____|', 3: '|____|', 4: '|____|'}
 
 #dictionary containing all possible payout coefficients:
 payout_coeffs = {'1:1': 1, '2:1': 2, '3:2': 1.5, 'Tie': 0}
@@ -47,7 +69,7 @@ def display_chip_values():
     print('\nChip colors and values:')
 
     for color in chip_colors:
-        print(f'{chip_symbols[color]} {color:<6} {chip_values[color]:>19.2f}')
+        print(f'{chip_symbols[color]} {color:<6} {chip_values[color]:>19.2f}' + reset)
 
 
 class Card:
@@ -69,10 +91,10 @@ class Card:
         #color used for displaying the Card (attribute of a colors.fg object):
         #black card suits:
         if self.suit in ['♣', '♠']:
-            self.color = colors.fg.black
+            self.color = reset
         #red card suits:
         else:
-            self.color = colors.fg.red
+            self.color = red
 
     def __str__(self):
         """
@@ -94,11 +116,11 @@ class Card:
 
         #build the line-by-line representation of the card image from items of the "patterns" dictionary,
         # and colored string representation of the card:
-        return {1: (colors.fg.black + patterns['top'] + patterns['space']),
-                2: (colors.fg.black + patterns['upper'] + patterns['space']),
-                3: (colors.fg.black + left_border + self.color + self.__str__() + colors.fg.black +
+        return {1: (reset + patterns['top'] + patterns['space']),
+                2: (reset + patterns['upper'] + patterns['space']),
+                3: (reset + left_border + self.color + self.__str__() + reset +
                     patterns['right'] + patterns['space']),
-                4: (colors.fg.black + patterns['bottom'] + patterns['space'])}
+                4: (reset + patterns['bottom'] + patterns['space'])}
 
 
 class Deck:
@@ -503,7 +525,7 @@ class HumanPlayer(Player):
                             displayed_chips_number > 0:
 
                         #print the value corresponding to current chip color:
-                        print(f' x {chip_values[color]:5.2f}' + colors.fg.black, end='')
+                        print(f' x {chip_values[color]:5.2f}' + reset, end='')
                         #space left up to column width:
                         space = (30 - displayed_chips_number + 5) * ' '
 
@@ -667,6 +689,8 @@ class HumanPlayer(Player):
         print('\n')
         #display chips in all HumanPlayer's wagers:
         self.display_chips(*self.wagers.keys())
+        #asking to press enter to continue:
+        press_enter_to_continue()
 
     def double_wager(self, move, split_wager_number = 0, new_split_wager_number = 1):
         """
@@ -855,7 +879,7 @@ class HumanPlayer(Player):
         #displaying one high-value chip and 10 smaller-value chips it can be exchanged to:
         print(f"\nand {self.name}'s chip to exchange:")
         print(f'{chip_symbols[color]} ✕ {chip_values[color]:5.2f}  =  ' + f'{chip_symbols[new_color]}'*10 +
-              f' ✕ {chip_values[new_color]:5.2f}\n' + colors.fg.black)
+              f' ✕ {chip_values[new_color]:5.2f}\n' + reset)
 
         choice = 'None'
         
@@ -897,6 +921,8 @@ def ask_players_name():
 
         if len(name) > 14:
             print("Sorry, the name is too long! Please make it 14 characters or less")
+        elif len(name) == 0:
+            print("Sorry, I don't understand! Please try again")
         else:
             return name
 
@@ -1592,6 +1618,4 @@ if __name__ == '__main__':
                 else:
                     need_more_chips = more_chips_requested()
 
-    print(plr.bankroll)
-    print(plr.chips['Amount'])
     print(f"Game over! {plr.name}'s bankroll: {(plr.bankroll + plr.chips['Amount']):7.2f}")
