@@ -309,6 +309,7 @@ class Hand:
 
         return self.score, natural
 
+
 def surrender_offered(hand, dealer_upcard):
     """
     Determines whether or not to offer Surrender, depending on the Hand score and Dealer's upcard
