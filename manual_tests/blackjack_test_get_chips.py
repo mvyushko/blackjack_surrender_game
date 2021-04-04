@@ -2,7 +2,7 @@
 Creates an instance of HumanPlayer class and runs the get_chips(self) method of this class. Prints out the updated
 self.chips dictionary.
 """
-from blackjack_with_chips import HumanPlayer
+from blackjack_surrender_game import HumanPlayer
 
 player = HumanPlayer('Masha')
 

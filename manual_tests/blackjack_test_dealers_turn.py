@@ -4,7 +4,7 @@ computer Dealer, and an instance of a Deck class representing a 52-card French-S
 and deals 2 cards to it. Runs the dealers_turn(dealer, player, player_score_list, player_natural_list, deck) function.
 Prints out the resulting hand score, and the boolean showing if Dealer has a Natural Blackjack.
 """
-from blackjack_with_chips import Player, HumanPlayer, Deck, Card, dealers_turn
+from blackjack_surrender_game import Player, HumanPlayer, Deck, Card, dealers_turn
 
 player = HumanPlayer('Masha')
 dealer = Player()

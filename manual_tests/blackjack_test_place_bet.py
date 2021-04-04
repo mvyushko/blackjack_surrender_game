@@ -1,7 +1,7 @@
 """
 Creates an instance of HumanPlayer class and runs the place_bet(self, bet) method of this class.
 """
-from blackjack_with_chips import HumanPlayer
+from blackjack_surrender_game import HumanPlayer
 
 player = HumanPlayer('Masha')
 

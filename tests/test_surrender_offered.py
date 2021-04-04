@@ -2,7 +2,7 @@
 Testing surrender_offered(hand, dealer_upcard) function from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_with_chips import Hand, Card, surrender_offered
+from blackjack_surrender_game import Hand, Card, surrender_offered
 
 class TestCases(unittest.TestCase):
 

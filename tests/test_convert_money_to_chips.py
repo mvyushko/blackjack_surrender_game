@@ -2,7 +2,7 @@
 Testing the money_to_chips(amount_to_convert) function from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_with_chips import money_to_chips
+from blackjack_surrender_game import money_to_chips
 
 class TestCases(unittest.TestCase):
 

@@ -2,7 +2,7 @@
 Testing surrender(self) method of HumanPlayer class from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_with_chips import HumanPlayer
+from blackjack_surrender_game import HumanPlayer
 
 class TestCases(unittest.TestCase):
 

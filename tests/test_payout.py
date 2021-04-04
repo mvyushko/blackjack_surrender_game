@@ -2,7 +2,7 @@
 Testing player.add_winnings(self, payout, bet) method from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_with_chips import HumanPlayer
+from blackjack_surrender_game import HumanPlayer
 
 class TestCases(unittest.TestCase):
 

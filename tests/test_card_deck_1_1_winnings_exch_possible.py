@@ -3,7 +3,7 @@ Testing Card and Deck classes, add_winnings(self, payout, wager), clear_wager(se
 methods of HumanPlayer class with Unittest library
 """
 import unittest
-from blackjack_with_chips import Card, Deck, HumanPlayer
+from blackjack_surrender_game import Card, Deck, HumanPlayer
 
 class TestCases(unittest.TestCase):
     def test_card(self):

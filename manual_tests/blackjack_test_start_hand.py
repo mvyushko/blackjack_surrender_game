@@ -2,7 +2,7 @@
 Creates an instance of HumanPlayer class. Starts an empty "Normal" Hand for HumanPlayer and two empty "Split Hand"
 Hands. Prints out the attributes of all three Hands.
 """
-from blackjack_with_chips import HumanPlayer
+from blackjack_surrender_game import HumanPlayer
 
 player = HumanPlayer('Masha')
 player.start_hand()
