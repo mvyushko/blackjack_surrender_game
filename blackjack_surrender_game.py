@@ -1,3 +1,11 @@
+"""
+Text version of the 52-card Blackjack Late Surrender game for one human Player, and a computer Dealer.
+Allows Splits, Doubling Down, Insurance and Surrender.
+Dealer stands on soft 17. Blackjack pays 3:2.
+To display cards, uses rectangles constructed of pipe operators and underscores.
+To display chips, uses colored capital O letters.
+"""
+
 import random
 import math
 import sys
@@ -88,11 +96,11 @@ class Card:
         #Blackjack value of the Card (int):
         self.value = card_values[rank]
 
-        #color used for displaying the Card (attribute of a colors.fg object):
-        #black card suits:
+        #color used for displaying the Card:
+        #black card suits use default color:
         if self.suit in ['♣', '♠']:
             self.color = reset
-        #red card suits:
+        #red card suits use red:
         else:
             self.color = red
 
