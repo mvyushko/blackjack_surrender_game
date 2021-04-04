@@ -52,23 +52,24 @@ class TestCases(unittest.TestCase):
 
     def test_HumanPlayer_split_hand_J(self):
         """
-        Testing the split_hand1, split_hand2 attributes of HumanPlayer class(splitting a pair of two Jacks)
+        Testing the start_split_hand(self, split_hand_number, split_wager_number) method of HumanPlayer class (splitting
+        a pair of two Jacks)
         """
         player = HumanPlayer('Masha')
         test_hand = Hand('Normal')
-        player.start_split_hand1()
-        player.start_split_hand2()
+        player.start_split_hand('1', 0)
+        player.start_split_hand('2', 1)
         test_hand.cards.extend([Card('♥', 'J'), Card('♦', 'J')])
         split_pair = test_hand.split_pair()
-        player.split_hand1.add_card_from_split(split_pair[0])
-        player.split_hand2.add_card_from_split(split_pair[1])
-        result1 = player.split_hand1.cards[0].__str__()
-        result2 = player.split_hand2.cards[0].__str__()
-        num_cards_split1 = len(player.split_hand1.cards)
-        num_cards_split2 = len(player.split_hand2.cards)
+        player.split_hands[0].add_card_from_split(split_pair[0])
+        player.split_hands[1].add_card_from_split(split_pair[1])
+        result1 = player.split_hands[0].cards[0].__str__()
+        result2 = player.split_hands[1].cards[0].__str__()
+        num_cards_split1 = len(player.split_hands[0].cards)
+        num_cards_split2 = len(player.split_hands[1].cards)
         num_cards_left = len(test_hand.cards)
-        result1_score = player.split_hand1.score
-        result2_score = player.split_hand2.score
+        result1_score = player.split_hands[0].score
+        result2_score = player.split_hands[1].score
 
         self.assertEqual(result1, 'J♦')
         self.assertEqual(result2, 'J♥')
@@ -112,6 +113,8 @@ class TestCases(unittest.TestCase):
         num_cards_left = len(test_hand.cards)
         result1_score = test_split_hand1.score
         result2_score = test_split_hand2.score
+        result1_value = test_split_hand1.cards[0].value
+        result2_value = test_split_hand2.cards[0].value
 
         self.assertEqual(result1, 'A♦')
         self.assertEqual(result2, 'A♥')
@@ -120,26 +123,29 @@ class TestCases(unittest.TestCase):
         self.assertEqual(num_cards_split2, 1)
         self.assertEqual(result1_score, 11)
         self.assertEqual(result2_score, 11)
+        self.assertEqual(result1_value, 11)
+        self.assertEqual(result2_value, 11)
 
     def test_HumanPlayer_split_hand_A(self):
         """
-        Testing the split_hand1, split_hand2 attributes of HumanPlayer class(splitting a pair of two Aces)
+        Testing the start_split_hand(self, split_hand_number, split_wager_number) method of HumanPlayer class (splitting
+         a pair of two Aces)
         """
         player = HumanPlayer('Masha')
         test_hand = Hand('Normal')
-        player.start_split_hand1()
-        player.start_split_hand2()
+        player.start_split_hand('1', 0)
+        player.start_split_hand('2', 1)
         test_hand.cards.extend([Card('♥', 'A'), Card('♦', 'A')])
         split_pair = test_hand.split_pair()
-        player.split_hand1.add_card_from_split(split_pair[0])
-        player.split_hand2.add_card_from_split(split_pair[1])
-        result1 = player.split_hand1.cards[0].__str__()
-        result2 = player.split_hand2.cards[0].__str__()
-        num_cards_split1 = len(player.split_hand1.cards)
-        num_cards_split2 = len(player.split_hand2.cards)
+        player.split_hands[0].add_card_from_split(split_pair[0])
+        player.split_hands[1].add_card_from_split(split_pair[1])
+        result1 = player.split_hands[0].cards[0].__str__()
+        result2 = player.split_hands[1].cards[0].__str__()
+        num_cards_split1 = len(player.split_hands[0].cards)
+        num_cards_split2 = len(player.split_hands[1].cards)
         num_cards_left = len(test_hand.cards)
-        result1_score = player.split_hand1.score
-        result2_score = player.split_hand2.score
+        result1_score = player.split_hands[0].score
+        result2_score = player.split_hands[1].score
 
         self.assertEqual(result1, 'A♦')
         self.assertEqual(result2, 'A♥')

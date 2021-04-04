@@ -1,44 +1,52 @@
-from blackjack_with_chips import HumanPlayer, Deck, Card
+"""
+Creates an instance of HumanPlayer class representing the human player, an instance of Player class representing the
+computer Dealer, and an instance of a Deck class representing a 52-card French-Suited deck. Starts Hands for both
+HumanPlayer and Dealer, sets a nonzero number of chips in HumanPlayers chip pile and wagers.
+Plays a Hand (and all Split Hands created by splitting it) for the human player. Prints out the resulting hand score
+list, natural Blackjack list, and the updated HumanPlayer's chips and wagers dictionaries.
+"""
 
-player = HumanPlayer('Masha')
-deck = Deck()
-deck.deck_cards.extend([Card('♥','A'), Card('♥','K'), Card('♦','A'), Card('♣','A')])
-player.start_hand()
+from blackjack_with_chips import Player, HumanPlayer, Deck, Card, players_turn
 
-player.hand.add_card_from_deck(deck)
-player.hand.add_card_from_deck(deck)
-
-hand_list = [player.hand]
-score_list = []
-
-while len(hand_list) > 0:
-    hand = hand_list.pop(0)
-    hand.display_face_up('Player')
-    print('\nHand score:', hand.score)
-
-    if hand.type == 'Normal' or hand.split_hand_number <= 2:
-
-        if hand.cards[0].rank == hand.cards[1].rank:
-            choice = input('Split?: Y or N ')
-
-            if choice == 'y':
-                player.start_split_hand(len(player.split_hands) + 1)
-                player.start_split_hand(len(player.split_hands) + 1)
-                split_card1, split_card2 = hand.split_pair()
-
-                player.split_hands[-2].add_card_from_split(split_card1)
-                player.split_hands[-1].add_card_from_split(split_card2)
-
-                player.split_hands[-2].add_card_from_deck(deck)
-                player.split_hands[-1].add_card_from_deck(deck)
-                hand_list = [player.split_hands[-2], player.split_hands[-1]] + hand_list
-                continue
-
-    print('This hand has been played!')
-    score_list.append(hand.score)
-
-print(score_list)
+#dictionary containing pairs of split_hand_number attributes assigned to newly created split hands,  depending on which
+#hand they come from.
+#keys: split_hand_number attributes of hands being split
+#values: pairs of split_hand_number attributes assigned to hands created by splitting
+new_split_hand_numbers = {'0': ('1', '2'), '1': ('1.1', '1.2'), '2': ('2.1', '2.2')}
+#"empty" dictionary containing zero chips of each color:
+empty = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
 
+if __name__ == '__main__':
+
+    player = HumanPlayer('Masha')
+    dealer = Player()
+    player.chips = {'White': 0, 'Pink': 0, 'Red': 6, 'Green': 0, 'Orange': 0, 'Amount': 30}
+    player.wagers = {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
+                                    'Amount': 6},
+                     'Insurance': {'White': 8, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
+                     'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
+                     'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
+                     'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
+    deck = Deck()
+    deck.shuffle()
+    deck.deck_cards.extend([Card('♦','5'), Card('♦','5'), Card('♦','5'), Card('♣','5'), Card('♦','5'),
+                            Card('♣','6'), Card('♦','5'), Card('♣','6'), Card('♣','5')])
+    player.start_hand()
+    dealer.start_hand()
+
+    player.hand.add_card_from_deck(deck)
+    dealer.hand.add_card_from_deck(deck)
+
+    player.hand.add_card_from_deck(deck)
+    dealer.hand.add_card_from_deck(deck)
+
+    print(players_turn(player, dealer, deck))
+
+    for key, value in player.wagers.items():
+        if value != empty:
+            print(key, ':', value)
+
+    print('Players chips:', player.chips)
 
 

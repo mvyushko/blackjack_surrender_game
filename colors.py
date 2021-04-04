@@ -1,5 +1,6 @@
 # Python program to print
 # colored text and background
+# (borrowed from https://www.geeksforgeeks.org/print-colors-python-terminal/)
 class colors:
 	'''Colors class:reset all colors with colors.reset; two
 	sub classes fg for foreground
