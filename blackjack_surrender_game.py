@@ -17,21 +17,21 @@ if sys.platform.startswith('win'):
     init()
     from colorama import Fore, Back, Style
     #colors for output formatting:
-    pink = Fore.LIGHTMAGENTA_EX
-    red = Fore.LIGHTRED_EX
-    green = Fore.GREEN
-    orange = Back.YELLOW + Fore.RED
-    reset = Style.RESET_ALL
+    PINK = Fore.LIGHTMAGENTA_EX
+    RED = Fore.LIGHTRED_EX
+    GREEN = Fore.GREEN
+    ORANGE = Back.YELLOW + Fore.RED
+    RESET = Style.RESET_ALL
 
 else:
     #use the colors module:
     from colors import colors
     #colors for output formatting:
-    pink = colors.fg.pink
-    red = colors.fg.red
-    green = colors.fg.green
-    orange = colors.fg.orange
-    reset = colors.reset
+    PINK = colors.fg.pink
+    RED = colors.fg.red
+    GREEN = colors.fg.green
+    ORANGE = colors.fg.orange
+    RESET = colors.reset
 
 # tuple containing all chip colors:
 chip_colors = ('Orange', 'Green', 'Red', 'Pink', 'White')
@@ -43,8 +43,8 @@ chip_values = {'White': 1, 'Pink': 2.5, 'Red': 5, 'Green': 25, 'Orange': 50}
 empty = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
 # dictionary containing chip symbols (letters 'O' of corresponding color, black letter 'O'  for a 'White' chip):
-chip_symbols = {'White': reset + 'O', 'Pink': pink + 'O', 'Red': red + 'O',
-                'Green': green + 'O', 'Orange': orange + 'O'}
+chip_symbols = {'White': RESET + 'O', 'Pink': PINK + 'O', 'Red': RED + 'O',
+                'Green': GREEN + 'O', 'Orange': ORANGE + 'O'}
 
 # tuples containing all card suits and ranks:
 suits = ('♥', '♦', '♣', '♠')
@@ -77,7 +77,7 @@ def display_chip_values():
     print('\nChip colors and values:')
 
     for color in chip_colors:
-        print(f'{chip_symbols[color]} {color:<6} {chip_values[color]:>19.2f}' + reset)
+        print(f'{chip_symbols[color]} {color:<6} {chip_values[color]:>19.2f}' + RESET)
 
 
 class Card:
@@ -99,10 +99,10 @@ class Card:
         #color used for displaying the Card:
         #black card suits use default color:
         if self.suit in ['♣', '♠']:
-            self.color = reset
+            self.color = RESET
         #red card suits use red:
         else:
-            self.color = red
+            self.color = RED
 
     def __str__(self):
         """
@@ -124,11 +124,11 @@ class Card:
 
         #build the line-by-line representation of the card image from items of the "patterns" dictionary,
         # and colored string representation of the card:
-        return {1: (reset + patterns['top'] + patterns['space']),
-                2: (reset + patterns['upper'] + patterns['space']),
-                3: (reset + left_border + self.color + self.__str__() + reset +
+        return {1: (RESET + patterns['top'] + patterns['space']),
+                2: (RESET + patterns['upper'] + patterns['space']),
+                3: (RESET + left_border + self.color + self.__str__() + RESET +
                     patterns['right'] + patterns['space']),
-                4: (reset + patterns['bottom'] + patterns['space'])}
+                4: (RESET + patterns['bottom'] + patterns['space'])}
 
 
 class Deck:
@@ -253,7 +253,7 @@ class Hand:
             #displaying the line assembled from corresponding line of the first card line-by-line image, and
             #corresponding line of the "card face down" line-by-line image
             print(self.cards[0].display_patterns()[line_number] + display_face_down[line_number])
-            
+
     def split_pair(self):
         """
         Splits a two-card Hand into two Cards and returns them
@@ -261,7 +261,7 @@ class Hand:
         """
         #checking if there are two cards in Hand:
         if len(self.cards) == 2:
-            
+
             #removing both cards from Hand:
             split_card1 = self.cards.pop()
             split_card2 = self.cards.pop()
@@ -269,7 +269,7 @@ class Hand:
             self.score = 0
             #returning the two Cards:
             return split_card1, split_card2
-        
+
         else:
             raise ValueError('Incorrect number of cards in Hand. Only a two-card Hand can be split')
 
@@ -320,10 +320,7 @@ def surrender_offered(hand, dealer_upcard):
     if hand.score in [14, 15, 16]:
 
         #checking if Dealer's upcard is a 10 or an Ace:
-        if dealer_upcard in ['10', 'J', 'Q', 'K', 'A']:
-            return True
-        else:
-            return False
+        return dealer_upcard in ['10', 'J', 'Q', 'K', 'A']
 
     else:
         return False
@@ -363,7 +360,7 @@ def money_to_chips(amount_to_convert):
     fract_part = math.modf(amount_to_convert)[0]
 
     #rounding quarter-integer amounts down to half-integers:
-    if fract_part == 0.25 or fract_part == 0.75:
+    if fract_part in [0.25, 0.75]:
         discarded_amount = 0.25
         amount_to_convert -= discarded_amount
         fract_part -= discarded_amount
@@ -501,10 +498,10 @@ class HumanPlayer(Player):
 
             #for loop over displayed chip piles:
             for pile in displayed_chip_piles:
-                    #adding the number of chips of current color in the current pile to the chips_left_to_display list:
-                    chips_left_to_display.append(pile[color])
-                    #adding a zero to the zero list:
-                    zero_list.append(0)
+                #adding the number of chips of current color in the current pile to the chips_left_to_display list:
+                chips_left_to_display.append(pile[color])
+                #adding a zero to the zero list:
+                zero_list.append(0)
 
             #checking if there are any chips left to display:
             while chips_left_to_display != zero_list:
@@ -534,7 +531,7 @@ class HumanPlayer(Player):
                             displayed_chips_number > 0:
 
                         #print the value corresponding to current chip color:
-                        print(f' x {chip_values[color]:5.2f}' + reset, end='')
+                        print(f' x {chip_values[color]:5.2f}' + RESET, end='')
                         #space left up to column width:
                         space = (30 - displayed_chips_number + 5) * ' '
 
@@ -836,7 +833,7 @@ class HumanPlayer(Player):
             chips_to_return = money_to_chips(self.wagers['Main Wager']['Amount'] / 2)
 
             #adding the result to HumanPlayer's chip pile:
-            for key in self.chips.keys():
+            for key in self.chips:
                 self.chips[key] += chips_to_return[key]
 
 
@@ -862,8 +859,7 @@ class HumanPlayer(Player):
             if self.chips[color] > 0:
                 return True, color
 
-        else:
-            return False, 'None'
+        return False, 'None'
 
     def cheque_change(self, color):
         """
@@ -886,14 +882,14 @@ class HumanPlayer(Player):
         #displaying one high-value chip and 10 smaller-value chips it can be exchanged to:
         print(f"\nand {self.name}'s chip to exchange:")
         print(f'{chip_symbols[color]} ✕ {chip_values[color]:5.2f}  =  ' + f'{chip_symbols[new_color]}'*10 +
-              f' ✕ {chip_values[new_color]:5.2f}\n' + reset)
+              f' ✕ {chip_values[new_color]:5.2f}\n' + RESET)
 
         choice = 'None'
-        
+
         #while loop asking if player approves of the exchange until answer is valid:
         while choice.casefold() not in ['y', 'n']:
-            choice = input(f'Do you approve of this exchange? (Y or N): ')
-            
+            choice = input('Do you approve of this exchange? (Y or N): ')
+
             #checking if input value is valid:
             if choice.casefold() not in ['y', 'n']:
                 print("Sorry, I don't understand! Please choose Y or N")
@@ -924,14 +920,14 @@ def ask_players_name():
     :return: player's name as a string
     """
     while True:
-        name = input("Please enter Player's name: ")
+        players_name = input("Please enter Player's name: ")
 
-        if len(name) > 14:
+        if len(players_name) > 14:
             print("Sorry, the name is too long! Please make it 14 characters or less")
-        elif len(name) == 0:
+        elif len(players_name) == 0:
             print("Sorry, I don't understand! Please try again")
         else:
-            return name
+            return players_name
 
 def hit_or_stand():
     """
@@ -967,10 +963,7 @@ def double_down_requested():
             print("Sorry, I don't understand! Please choose Y or N")
 
     #if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
+    return choice.casefold() == 'y'
 
 def insurance_requested():
     """
@@ -988,10 +981,7 @@ def insurance_requested():
             print("Sorry, I don't understand! Please choose Y or N")
 
     # if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
+    return choice.casefold() == 'y'
 
 def split_requested():
     """
@@ -1009,10 +999,7 @@ def split_requested():
             print("Sorry, I don't understand! Please choose Y or N")
 
     #if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
+    return choice.casefold() == 'y'
 
 def surrender_requested():
     """
@@ -1030,10 +1017,7 @@ def surrender_requested():
             print("Sorry, I don't understand! Please choose Y or N")
 
     # if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
+    return choice.casefold() == 'y'
 
 def replay():
     """
@@ -1051,10 +1035,7 @@ def replay():
             print("Sorry, I don't understand! Please choose Y or N")
 
     # if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
+    return choice.casefold() == 'y'
 
 def more_chips_requested():
     """
@@ -1072,10 +1053,7 @@ def more_chips_requested():
             print("Sorry, I don't understand! Please choose Y or N")
 
     # if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
+    return choice.casefold() == 'y'
 
 def cheque_change_requested(color):
     """
@@ -1099,11 +1077,7 @@ def cheque_change_requested(color):
             print("Sorry, I don't understand! Please choose Y or N")
 
     # if choice is valid:
-    if choice.casefold() == 'y':
-        return True
-    else:
-        return False
-
+    return choice.casefold() == 'y'
 
 def press_enter_to_continue():
     """
@@ -1339,9 +1313,9 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
     :rtype: self.score: int, natural: bool
     """
     #the initial dealer's Hand score:
-    dlr_score = dealer.hand.score
+    dealer_score = dealer.hand.score
     #checking if Dealer has a Blackjack:
-    dlr_natural = dealer.hand.score == 21
+    dealer_natural = dealer.hand.score == 21
 
     #checking if human player has played any hands without both a bust or a Natural Blackjack:
     for score, natural in zip(player_score_list, player_natural_list):
@@ -1395,7 +1369,7 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
 
 
         #playing Dealer's hand up to soft 17:
-        dlr_score, dlr_natural = dealer.hand.play_for_dealer(deck)
+        dealer_score, dealer_natural = dealer.hand.play_for_dealer(deck)
 
     #clearing the screen:
     print('\n' * 100)
@@ -1416,7 +1390,7 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
 
     print('\n')
     #returning Dealer's final score and a boolean showing if Dealer has a Blackjack:
-    return dlr_score, dlr_natural
+    return dealer_score, dealer_natural
 
 def check_outcome_and_add_winnings(player, player_score_list, player_natural_list, player_wager_list, dealer_score,
                                    dealer_natural):
@@ -1436,10 +1410,10 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
     if len(player_score_list) == 1:
 
         #checking for human player's Blackjack:
-        if player_natural_list[0] == True:
+        if player_natural_list[0]:
 
             #checking for Dealer's Blackjack:
-            if dealer_natural == False:
+            if not dealer_natural:
                 print (f'{player.name} has won 3:2!')
                 player.add_winnings('3:2', 'Main Wager')
             else:
@@ -1450,7 +1424,7 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
         elif player_score_list[0] > 21:
             print('BUST! House has won!')
         #checking for Dealer's Blackjack:
-        elif dealer_natural == True:
+        elif dealer_natural:
             print('Dealer has a Blackjack! House has won!')
 
             #checking if an Insurance bet has been placed:
@@ -1477,7 +1451,7 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
     #more than 1 hand has been played:
     else:
 
-        if dealer_natural == True:
+        if dealer_natural:
             print('Dealer has a Blackjack!')
 
             # checking if an Insurance bet has been placed:
@@ -1490,10 +1464,10 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
 
         for score, natural, wager in zip (player_score_list, player_natural_list, player_wager_list):
             # checking for human player's Blackjack:
-            if natural == True:
+            if natural:
 
                 # checking for Dealer's Blackjack:
-                if dealer_natural == False:
+                if not dealer_natural:
                     print(f"{player.name}'s {wager} has won 3:2!")
                     player.add_winnings('3:2', wager)
                 else:
@@ -1501,7 +1475,7 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
                     player.add_winnings('Tie', wager)
 
             # checking for Dealer's Blackjack:
-            elif dealer_natural == True:
+            elif dealer_natural:
                 print(f"House has won {player.name}'s {wager}!")
 
             # checking for a bust:
@@ -1528,8 +1502,8 @@ if __name__ == '__main__':
 
     #game setup:
     print('Welcome to the Blackjack Game!')
-    name = ask_players_name()
-    plr = HumanPlayer(name)
+    plr_name = ask_players_name()
+    plr = HumanPlayer(plr_name)
     dlr = Player()
 
     play_again = True
