@@ -54,7 +54,8 @@ def money_to_chips(amount_to_convert):
     """
     A function to convert money into chips
     :param amount_to_convert: monetary amount to be exchanged for chips
-    :return: dictionary containing the number of chips of each color and their total value ('Amount'))
+    :return: dictionary containing the number of chips of each color and their total value ('Amount')
+    :rtype: dict
     """
     # checking if amount to convert is non-negative:
     if amount_to_convert < 0:

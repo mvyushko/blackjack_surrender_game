@@ -133,7 +133,7 @@ class Hand:
 
     def add_card_from_deck(self, deck):
         """
-        A method for taking cards from Deck and adding them to Hand
+        A method for drawing cards from Deck and adding them to Hand
         :parameter deck: a Deck object
         """
         # taking a Card from Deck:
@@ -223,6 +223,7 @@ class Hand:
         """
         Adds a Card object obtained by splitting a pair to Hand
         :param split_card: a Card object
+        :return: none
         """
         # checking if the card added from split is an Ace:
         if split_card.rank == 'A':

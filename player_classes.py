@@ -41,6 +41,7 @@ class HumanPlayer(Player):
     def __init__(self, name):
         """
         Constructor for instantiating a HumanPlayer object
+        :param name: player's name (str)
         """
         Player.__init__(self)
         # HumanPlayer's name:
@@ -77,8 +78,8 @@ class HumanPlayer(Player):
 
     def display_chips(self, *args):
         """
-        Displays chips in columns corresponding to HumanPlayer's "chip piles". Prints "No chips left!" in the
-        corresponding column if the "chip pile" of remaining HumanPlayer's chips is empty.
+        Displays chips in columns corresponding to HumanPlayer's "chip piles" ("chip piles" include HumanPlayer's chips
+        and current wagers). Prints "No chips left!" in the corresponding column if HumanPlayer has run out of chips.
         :param '*args': the variable arguments are used for names of "chip piles" to display.
         :type arg: str
         "Chip piles" include HumanPlayer's Chips, HumanPlayer's Main Wager, HumanPlayer's Split Wagers, and
@@ -86,7 +87,7 @@ class HumanPlayer(Player):
         Possible chip pile names: "Chips" (HumanPlayer's chips), "Main Wager", "Split Wager 1", "Split Wager 2",
         "Split Wager 3", "Insurance".
         """
-        # initializing the lists of "chip piles" and chip pile names to be displayed:
+        # creating two lists for "chip piles" and chip pile names to be displayed:
         displayed_chip_piles = []
         displayed_chip_pile_names = []
 
@@ -121,7 +122,7 @@ class HumanPlayer(Player):
                     # blank space up to column width:
                     space = ((34 - len(self.name) - len(pile_and_name[1]) + 5) * ' ')
 
-            # for the wager "Chip Piles":
+            # for the rest of "chip piles" (i.e. those corresponding to wagers):
             else:
                 # printing the chip pile name:
                 print(f"{self.name}'s {pile_and_name[1]}:", end = '')
@@ -157,11 +158,11 @@ class HumanPlayer(Player):
                 for index in range(len(displayed_chip_pile_names)):
 
                     # Only 30 chip symbols fit in a column. If there are more than 30 chips of any color in any pile,
-                    # the remaining chip symbols (chips left to display) are carried over to next line
+                    # the remaining chip symbols (chips left to display) are carried over to next line:
                     if chips_left_to_display[index] > 30:
-                        # number of chips displayed in current line
+                        # number of chips displayed in current line:
                         displayed_chips_number = 30
-                        # number of chips carried over to next line
+                        # number of chips carried over to next line:
                         chips_left_to_display[index] -= 30
                     else:
                         # if all remaining chips fit in the column width, display them all in current line:
@@ -354,7 +355,7 @@ class HumanPlayer(Player):
         :type split_wager_number, new_split_wager_number: int
         :return: a tuple containing the updated HumanPlayer's wagers dictionary (self.wagers) and updated HumanPlayer's
          chips dictionary (self.chips)
-         :rtype: self.wagers(dict), self.chips(dict)
+        :rtype: self.wagers(dict), self.chips(dict)
         """
         # Determining which wager is to be doubled or split:
         if split_wager_number == 0:
@@ -416,7 +417,7 @@ class HumanPlayer(Player):
 
     def add_winnings(self, payout, bet):
         """
-        Adds chips HumanPlayer has won to Player's pile
+        Adds chips HumanPlayer has won to HumanPlayer's chips
         :param payout: payout on the winning wager. Possible values: "1:1", "3:2", "2:1", "Tie".
         :type payout: str
         :param bet: HumanPlayer's winning wager name. Possible values: "Main Wager", "Split Wager 1", "Split Wager 2",
@@ -454,10 +455,10 @@ class HumanPlayer(Player):
 
     def surrender(self):
         """
-        Returns half of the Main Wager to HumanPlayer's chip pile in case of Surrender
+        Returns half of the Main Wager to HumanPlayer's chips in case of Surrender
         :return: none
         """
-        # checking if ne number of chips of each color in the Main Wager is divisible by 2:
+        # checking if the number of chips of each color in the Main Wager is divisible by 2:
         for color in CHIP_COLORS:
 
             if self.wagers['Main Wager'][color] % 2 != 0:
@@ -496,7 +497,7 @@ class HumanPlayer(Player):
 
     def cheque_change_possible(self):
         """
-        Checks if Player has any high-value chips (Orange or Green) that can be exchanged
+        Checks if HumanPlayer has any high-value chips (Orange or Green) that can be exchanged
         :return: tuple containing a boolean showing if there are any high value chips, and the color of
         the highest-value chip
         :rtype: bool, str

@@ -21,6 +21,7 @@ def players_turn(player, dealer, deck):
     :return: a tuple containing 3 lists and a boolean: a list of integers representing final scores of all hands played;
      a list of booleans showing if there was a Natural Blackjack for each hand played; a list of names of
     corresponding wagers for each hand played; and a boolean showing if surrender has been requested.
+    :rtype: score_list: list, natural_list: list, wager_list: list, sr_requested: bool
     """
     # creating the list of all human player's Blackjack hands left to play:
     hand_list = [player.hand]
@@ -221,7 +222,8 @@ def players_turn(player, dealer, deck):
         # adding the name of corresponding wager to the wager list:
         wager_list.append(wager_name)
 
-    # after all hands have been played, return the score list and the natural list:
+    # after all hands have been played, return the score list, the natural list, the wager list, and the boolean
+    # showing if Surrender has been requested:
     return score_list, natural_list, wager_list, sr_requested
 
 def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
@@ -426,8 +428,11 @@ if __name__ == '__main__':
 
     # game setup:
     print('Welcome to the Blackjack Game!')
+    # asking player's name:
     plr_name = ask_players_name()
+    # creating a HumanPlayer object representing the player:
     plr = HumanPlayer(plr_name)
+    # creating a Player object representing the dealer:
     dlr = Player()
 
     play_again = True
@@ -446,8 +451,10 @@ if __name__ == '__main__':
             else:
                 print('\n'*100)
 
+            #asking player to purchase chips:
             plr.get_chips()
             first_round = False
+            #asking to press enter to continue:
             press_enter_to_continue()
         else:
             pass
@@ -467,7 +474,7 @@ if __name__ == '__main__':
         # creating a "Normal" Hand object for dealer:
         dlr.start_hand()
 
-        # dealing initial 2 cards to both player and dealer and displaying the cards
+        # dealing initial 2 cards to both player and dealer:
         plr.hand.add_card_from_deck(playing_deck)
         dlr.hand.add_card_from_deck(playing_deck)
 
@@ -475,6 +482,8 @@ if __name__ == '__main__':
         dlr.hand.add_card_from_deck(playing_deck)
 
         # playing a round:
+
+        #player's turn:
         plr_scores, plr_naturals, plr_wagers, surrender = players_turn(plr, dlr, playing_deck)
 
         # checking for surrender:
@@ -501,15 +510,14 @@ if __name__ == '__main__':
         plr.split_hands = []
 
         # checking if player's got any chips, or sufficient bankroll to purchase chips:
-
         if plr.chips == EMPTY and plr.bankroll < 1:
             break
         else:
-            # asking if player wants to play again
+            # asking if player wants to play again:
             play_again = replay()
 
             if play_again:
-                # checking if cheque change is needed
+                # checking if cheque change is needed:
                 exchange_possible, high_value_color = plr.cheque_change_possible()
 
                 if exchange_possible:
@@ -517,7 +525,7 @@ if __name__ == '__main__':
                     if cheque_change_requested(high_value_color):
                         plr.cheque_change(high_value_color)
 
-                # checking if player needs more chips
+                # checking if player needs more chips:
                 if plr.chips == EMPTY:
                     need_more_chips = True
                 elif plr.bankroll < 1:
@@ -525,4 +533,5 @@ if __name__ == '__main__':
                 else:
                     need_more_chips = more_chips_requested()
 
+    #if the player has run out of both chips and bankroll, or doesn't want to replay:
     print(f"Game over! {plr.name}'s bankroll: {(plr.bankroll + plr.chips['Amount']):7.2f}")
