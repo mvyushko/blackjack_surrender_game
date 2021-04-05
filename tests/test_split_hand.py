@@ -2,9 +2,10 @@
 Testing splitting of a Hand object from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_surrender_game import Card, Hand, HumanPlayer
+from card_related_classes import Card, Hand
+from player_classes import HumanPlayer
 
-class TestCases(unittest.TestCase):
+class TestSplitHand(unittest.TestCase):
 
 
     def test_split_pair_J(self):

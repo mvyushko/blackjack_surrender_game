@@ -3,9 +3,11 @@ Testing Card and Deck classes, add_winnings(self, payout, wager), clear_wager(se
 methods of HumanPlayer class with Unittest library
 """
 import unittest
-from blackjack_surrender_game import Card, Deck, HumanPlayer
+from card_related_classes import Card, Deck
+from player_classes import HumanPlayer
 
-class TestCases(unittest.TestCase):
+class TestCardDeckHumanPlayer(unittest.TestCase):
+
     def test_card(self):
         """
         Testing the attributes of the Card class
@@ -84,4 +86,5 @@ class TestCases(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 

@@ -3,7 +3,8 @@ Creates an instance of HumanPlayer class representing the human player. Sets a n
 chip pile and wagers. Runs the check_outcome_and_add_winnings(player, player_score_list, player_natural_list,
  player_wager_list, dealer_score, dealer_natural) function. Prints out the updated HumanPlayer's self.chips dictionary.
 """
-from blackjack_surrender_game import HumanPlayer, check_outcome_and_add_winnings
+from player_classes import HumanPlayer
+from gameplay import check_outcome_and_add_winnings
 
 plr = HumanPlayer('Masha')
 

@@ -6,7 +6,9 @@ Plays a Hand (and all Split Hands created by splitting it) for the human player.
 list, natural Blackjack list, and the updated HumanPlayer's chips and wagers dictionaries.
 """
 
-from blackjack_surrender_game import Player, HumanPlayer, Deck, Card, players_turn
+from card_related_classes import Deck, Card
+from player_classes import Player, HumanPlayer
+from gameplay import players_turn
 
 #dictionary containing pairs of split_hand_number attributes assigned to newly created split hands,  depending on which
 #hand they come from.
@@ -48,5 +50,3 @@ if __name__ == '__main__':
             print(key, ':', value)
 
     print('Players chips:', player.chips)
-
-

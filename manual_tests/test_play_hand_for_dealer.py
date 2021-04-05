@@ -3,7 +3,8 @@ Creates an instance of Player class representing a Dealer, and an instance of a 
 adds two cards from Deck. Plays the Hand for Dealer (up to soft 17). Prints out the resulting score and whether it was
 a Blackjack.
 """
-from blackjack_surrender_game import Player, Deck, Card
+from card_related_classes import Deck, Card
+from player_classes import Player
 
 dealer = Player()
 deck = Deck()

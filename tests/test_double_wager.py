@@ -3,9 +3,9 @@ Testing double_wager(self, move, split_wager_number=0, new_split_wager_number=1)
 blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_surrender_game import HumanPlayer
+from player_classes import HumanPlayer
 
-class TestCases(unittest.TestCase):
+class TestDoubleWager(unittest.TestCase):
 
     def test_double_wager_2_1(self):
         """
@@ -240,3 +240,4 @@ class TestCases(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

@@ -2,9 +2,9 @@
 Testing player.add_winnings(self, payout, bet) method from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_surrender_game import HumanPlayer
+from player_classes import HumanPlayer
 
-class TestCases(unittest.TestCase):
+class TestPayout(unittest.TestCase):
 
     def test_payout_blackjack_1_1(self):
         """
@@ -433,4 +433,5 @@ class TestCases(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 

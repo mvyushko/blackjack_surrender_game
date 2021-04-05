@@ -2,9 +2,9 @@
 Testing surrender_offered(hand, dealer_upcard) function from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_surrender_game import Hand, Card, surrender_offered
+from card_related_classes import Hand, Card, surrender_offered
 
-class TestCases(unittest.TestCase):
+class TestSrOffered(unittest.TestCase):
 
     def test_sr_offered_17_10_7(self):
         """
@@ -95,4 +95,5 @@ class TestCases(unittest.TestCase):
         result = surrender_offered(test_hand, test_dlr_card)
         self.assertEqual(result, True)
 
-
+if __name__ == '__main__':
+    unittest.main()

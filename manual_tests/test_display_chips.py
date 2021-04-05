@@ -3,7 +3,7 @@ Creates an instance of HumanPlayer class, puts some nonzero chip numbers in Huma
 dictionaries, and runs the display_chips(self, *args) method.
 """
 
-from blackjack_surrender_game import HumanPlayer
+from player_classes import HumanPlayer
 
 player = HumanPlayer('Masha')
 player.chips = {'White': 0, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 1, 'Amount': 55}

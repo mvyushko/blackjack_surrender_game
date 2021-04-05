@@ -2,9 +2,9 @@
 Testing surrender(self) method of HumanPlayer class from blackjack_with_chips with Unittest library
 """
 import unittest
-from blackjack_surrender_game import HumanPlayer
+from player_classes import HumanPlayer
 
-class TestCases(unittest.TestCase):
+class TestSurrender(unittest.TestCase):
 
     def test_surrender_1_2(self):
         """
@@ -77,3 +77,6 @@ class TestCases(unittest.TestCase):
         result_chips = player.chips
         self.assertEqual(result_chips, {'White': 2, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                                         'Amount': 7})
+
+if __name__ == '__main__':
+    unittest.main()
