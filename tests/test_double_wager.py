@@ -26,14 +26,17 @@ class TestDoubleWager(unittest.TestCase):
                  'Split Wager 3': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips = player.double_wager('Double Down')
+        player.double_wager('Double Down')
+        result_wagers = player.wagers
+        result_chips_left = player.chips
+
         self.assertEqual(result_wagers, {'Main Wager': {'White': 2, 'Pink': 0, 'Red': 2, 'Green': 0, 'Orange': 0,
                                                         'Amount': 12},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 3': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}})
-        self.assertEqual(result_chips, {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0, 'Amount': 6})
+        self.assertEqual(result_chips_left, {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0, 'Amount': 6})
 
     def test_double_wager_4red_1(self):
         """
@@ -54,7 +57,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Double Down')
+        player.double_wager('Double Down')
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 2, 'Pink': 0, 'Red': 2, 'Green': 0, 'Orange': 0,
                                                         'Amount': 12},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -83,7 +88,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Split')
+        player.double_wager('Split')
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                         'Amount': 6},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -112,7 +119,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Split')
+        player.double_wager('Split')
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                         'Amount': 6},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -142,7 +151,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Split', 1, 2)
+        player.double_wager('Split', 1, 2)
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                         'Amount': 6},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -174,7 +185,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Split', 0, 2)
+        player.double_wager('Split', 0, 2)
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                         'Amount': 6},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -205,7 +218,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Split', 1, 2)
+        player.double_wager('Split', 1, 2)
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                         'Amount': 6},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -238,7 +253,9 @@ class TestDoubleWager(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method
-        result_wagers, result_chips_left = player.double_wager('Split', 2, 3)
+        player.double_wager('Split', 2, 3)
+        result_wagers = player.wagers
+        result_chips_left = player.chips
         self.assertEqual(result_wagers, {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orange': 0,
                                         'Amount': 6},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -251,4 +268,3 @@ class TestDoubleWager(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

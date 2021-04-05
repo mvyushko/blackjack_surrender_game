@@ -277,6 +277,7 @@ class HumanPlayer(Player):
         Places a bet for HumanPlayer; requires input from player
         :param bet: specifies what kind of bet is being placed (either "Main Wager" or "Insurance")
         :type bet: str
+        :return: none
         """
         if bet == 'Insurance':
             bet_name = ' Insurance'
@@ -353,9 +354,7 @@ class HumanPlayer(Player):
         :param new_split_wager_number: number assigned to new Split Wager created by Split (1, 2, or 3)
         :type move: str
         :type split_wager_number, new_split_wager_number: int
-        :return: a tuple containing the updated HumanPlayer's wagers dictionary (self.wagers) and updated HumanPlayer's
-         chips dictionary (self.chips)
-        :rtype: self.wagers(dict), self.chips(dict)
+        :return: none
         """
         # Determining which wager is to be doubled or split:
         if split_wager_number == 0:
@@ -413,8 +412,6 @@ class HumanPlayer(Player):
                 # creating a split wager containing same number of chips as the initial wager
                 self.wagers[f'Split Wager {new_split_wager_number}'][color] = self.wagers[doubled_wager_name][color]
 
-        return self.wagers, self.chips
-
     def add_winnings(self, payout, bet):
         """
         Adds chips HumanPlayer has won to HumanPlayer's chips
@@ -423,8 +420,7 @@ class HumanPlayer(Player):
         :param bet: HumanPlayer's winning wager name. Possible values: "Main Wager", "Split Wager 1", "Split Wager 2",
          "Split Wager 3", "Insurance".
         :type bet: str
-        :return: the updated self.chips dictionary
-        :rtype: dict
+        :return: none
         """
         # determining the amount won on top of the wager amount:
         # initializing the amount won as zero:
@@ -450,8 +446,6 @@ class HumanPlayer(Player):
         self.chips['Amount'] += self.wagers[bet]['Amount']
         # adding the value of the chips won on top of that:
         self.chips['Amount'] += added_chips['Amount']
-
-        return self.chips
 
     def surrender(self):
         """
@@ -514,6 +508,7 @@ class HumanPlayer(Player):
         Breaks one highest-value (Orange or Green) chip in HumanPlayer's chip pile into 10 smaller-value (Red or Purple)
         chips and displays the result; requires input from player to approve of the exchange
         :param color: color of HumanPlayer's highest-value chip
+        :return: none
         """
         # removing the high-value chip from HumanPlayer's chip pile:
         self.chips[color] -= 1
