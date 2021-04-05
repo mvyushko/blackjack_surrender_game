@@ -15,10 +15,11 @@ class TestSurrender(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 6
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 12},
+                                        'Amount': test_wager_amount * 2},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -39,10 +40,11 @@ class TestSurrender(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 6
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -63,10 +65,11 @@ class TestSurrender(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 6
+        test_wager_amount = 3.5
         player.chips = {'White': test_chips, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': test_wager, 'Red': 0, 'Green': 0, 'Orange': 0,
-                                        'Amount': 3.5},
+                                        'Amount': test_wager_amount},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},

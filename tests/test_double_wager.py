@@ -16,9 +16,10 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 2
         test_wager = 1
         test_total = 12
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -43,9 +44,10 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 4
         test_wager = 1
         test_total = 20
+        test_wager_amount = 6
         player.chips = {'White': 0, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -70,10 +72,11 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 2
         test_wager = 1
         test_total = 12
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -98,9 +101,10 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 4
         test_wager = 1
         test_total = 20
+        test_wager_amount = 6
         player.chips = {'White': 0, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0,
                                            'Amount': 0},
@@ -127,12 +131,13 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 4
         test_wager = 1
         test_total = 20
+        test_wager_amount = 6
         player.chips = {'White': 0, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                           'Amount': 6},
+                                           'Amount': test_wager_amount},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
@@ -157,12 +162,14 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 4
         test_wager = 1
         test_total = 20
+        test_wager_amount = 6
+        test_wager_amount1 = 11
         player.chips = {'White': 0, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': test_wager, 'Pink': 0, 'Red': test_wager * 2, 'Green': 0,
-                                           'Orange': 0, 'Amount': 11},
+                                           'Orange': 0, 'Amount': test_wager_amount1},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
@@ -186,12 +193,14 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 4
         test_wager = 1
         test_total = 20
+        test_wager_amount = 6
+        test_wager_amount1 = 11
         player.chips = {'White': 0, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': test_wager, 'Pink': 0, 'Red': test_wager * 2, 'Green': 0,
-                                           'Orange': 0, 'Amount': 11},
+                                           'Orange': 0, 'Amount': test_wager_amount1},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
@@ -216,14 +225,16 @@ class TestDoubleWager(unittest.TestCase):
         test_chips = 4
         test_wager = 1
         test_total = 20
+        test_wager_amount = 6
+        test_wager_amount2 = 11
         player.chips = {'White': 0, 'Pink': 0, 'Red': test_chips, 'Green': 0, 'Orange': 0, 'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0,
-                                           'Orange': 0, 'Amount': 6},
+                                           'Orange': 0, 'Amount': test_wager_amount},
                          'Split Wager 2': {'White': test_wager, 'Pink': 0, 'Red': test_wager * 2, 'Green': 0,
-                                           'Orange': 0, 'Amount': 11},
+                                           'Orange': 0, 'Amount': test_wager_amount2},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         #testing the double_wager(self,move, split_wager_number=0, new_split_wager_number=1) method

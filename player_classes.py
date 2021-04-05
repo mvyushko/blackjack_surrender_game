@@ -1,20 +1,20 @@
 """
 Contains Player class and HumanPlayer subclass for the blackjack surrender game
 """
-from chip_funcs import display_chip_values, money_to_chips, chip_colors, chip_values, chip_symbols
+from chip_funcs import display_chip_values, money_to_chips, CHIP_COLORS, CHIP_VALUES, CHIP_SYMBOLS
 from card_related_classes import Hand, RESET
 
 # "empty" dictionary containing zero chips of each color:
-empty = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
+EMPTY = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
 # dictionary containing all possible payout coefficients:
-payout_coeffs = {'1:1': 1, '2:1': 2, '3:2': 1.5, 'Tie': 0}
+PAYOUT_COEFFS = {'1:1': 1, '2:1': 2, '3:2': 1.5, 'Tie': 0}
 
 # dictionary containing pairs of split_hand_number attributes assigned to newly created split hands,  depending on which
 # hand they come from.
 # keys: split_hand_number attributes of hands being split
 # values: pairs of split_hand_number attributes assigned to hands created by splitting
-new_split_hand_numbers = {'0': ('1', '2'), '1': ('1.1', '1.2'), '2': ('2.1', '2.2')}
+NEW_SPLIT_HAND_NUMBERS = {'0': ('1', '2'), '1': ('1.1', '1.2'), '2': ('2.1', '2.2')}
 
 
 class Player:
@@ -99,7 +99,7 @@ class HumanPlayer(Player):
                 displayed_chip_pile_names.append(chip_pile_name)
             else:
                 # the wagers are added to the list of displayed "chip piles" only if they aren't empty:
-                if self.wagers[chip_pile_name] != empty:
+                if self.wagers[chip_pile_name] != EMPTY:
                     displayed_chip_piles.append(self.wagers[chip_pile_name])
                     displayed_chip_pile_names.append(chip_pile_name)
 
@@ -113,7 +113,7 @@ class HumanPlayer(Player):
                 print(f"{self.name}'s Chips:", end = '')
 
                 # checking if HumanPlayer has run out of chips:
-                if self.chips == empty:
+                if self.chips == EMPTY:
                     print (" No chips Left!", end = '')
                     # blank space up to column width:
                     space = (19 - len(self.name) - len(pile_and_name[1]) + 5) * ' '
@@ -136,7 +136,7 @@ class HumanPlayer(Player):
 
         # printing the chip symbols in columns corresponding to chip piles:
         # for loop over all chip colors:
-        for color in chip_colors:
+        for color in CHIP_COLORS:
 
             # list of chips of current color left to display in each column(pile):
             chips_left_to_display = []
@@ -170,7 +170,7 @@ class HumanPlayer(Player):
                         chips_left_to_display[index] = 0
 
                     # printing the chip symbols to be displayed in current line:
-                    print(chip_symbols[color] * displayed_chips_number, end='')
+                    print(CHIP_SYMBOLS[color] * displayed_chips_number, end='')
 
                     # checking if we just finished displaying all chips of current color in current pile
                     # (and if there were any):
@@ -178,7 +178,7 @@ class HumanPlayer(Player):
                             displayed_chips_number > 0:
 
                         # print the value corresponding to current chip color:
-                        print(f' x {chip_values[color]:5.2f}' + RESET, end='')
+                        print(f' x {CHIP_VALUES[color]:5.2f}' + RESET, end='')
                         # space left up to column width:
                         space = (30 - displayed_chips_number + 5) * ' '
 
@@ -207,13 +207,13 @@ class HumanPlayer(Player):
             print('\nPlease choose chips to purchase!')
 
             # a for loop over all chip colors and values:
-            for color in chip_colors:
+            for color in CHIP_COLORS:
 
                 # checking if there is enough money in HumanPlayer's bankroll to purchase at least 1 chip:
                 if self.bankroll >= 1:
 
                     # checking if bankroll is sufficient to buy at least one chip of current color:
-                    if chip_values[color] <= self.bankroll:
+                    if CHIP_VALUES[color] <= self.bankroll:
                         # display HumanPlayer's bankroll:
                         self.display_bankroll()
                         # display all chip colors and values:
@@ -233,7 +233,7 @@ class HumanPlayer(Player):
                                 if choice < 0:
                                     print("Sorry, I don't understand! Please try again")
                                 # checking if input exceeds the bankroll:
-                                elif choice * chip_values[color] > self.bankroll:
+                                elif choice * CHIP_VALUES[color] > self.bankroll:
                                     print('Bankroll too low! Please try again')
                                 else:
                                     # when input is valid:
@@ -241,9 +241,9 @@ class HumanPlayer(Player):
                                     # chip pile:
                                     self.chips[color] += choice
                                     # add the corresponding amount to the total value of HumanPlayer's chips:
-                                    self.chips['Amount'] += choice * chip_values[color]
+                                    self.chips['Amount'] += choice * CHIP_VALUES[color]
                                     # remove the same amount from HumanPlayer's bankroll:
-                                    self.bankroll -= choice * chip_values[color]
+                                    self.bankroll -= choice * CHIP_VALUES[color]
                                     # clear screen:
                                     print('\n'*100)
 
@@ -289,7 +289,7 @@ class HumanPlayer(Player):
             print(f'Please place your{bet_name} bet!')
 
             # for loop over all chip colors/values:
-            for color in chip_colors:
+            for color in CHIP_COLORS:
 
                 # checking if HumanPlayer has any chips of current color to display
                 if self.chips[color] > 0:
@@ -321,20 +321,20 @@ class HumanPlayer(Player):
                                 # adding the number of chips of current color entered by the player to the wager:
                                 self.wagers[bet][color] = choice
                                 # adding the corresponding value to current bet amount:
-                                bet_amount += choice * chip_values[color]
+                                bet_amount += choice * CHIP_VALUES[color]
                                 # adding the same value to the wager amount:
-                                self.wagers[bet]['Amount'] += choice * chip_values[color]
+                                self.wagers[bet]['Amount'] += choice * CHIP_VALUES[color]
                                 # removing the number of chips entered by the player from HumanPlayer's chips:
                                 self.chips[color] -= choice
                                 # removing their value from total value of HumanPlayer's chips:
-                                self.chips['Amount'] -= choice * chip_values[color]
+                                self.chips['Amount'] -= choice * CHIP_VALUES[color]
 
                                 # clearing screen:
                                 print('\n'*100)
                                 break
 
                     # checking if HumanPlayer has any chips left:
-                    if self.chips == empty:
+                    if self.chips == EMPTY:
                         break
 
         # display remaining HumanPlayer's chips:
@@ -365,7 +365,7 @@ class HumanPlayer(Player):
             doubled_wager_name = f'Split Wager {split_wager_number}'
 
         # for loop over all chip colors/values:
-        for color in chip_colors:
+        for color in CHIP_COLORS:
 
             # checking if HumanPlayer has at least same number of chips of current color as there are in in the wager:
             if self.chips[color] < self.wagers[doubled_wager_name][color]:
@@ -390,7 +390,7 @@ class HumanPlayer(Player):
         if enough_chips_of_each_color:
 
             # for loop over all chip colors/values:
-            for color in chip_colors:
+            for color in CHIP_COLORS:
                 # remove the chips to be added to the wager from HumanPlayer's chip pile:
                 self.chips[color] -= self.wagers[doubled_wager_name][color]
 
@@ -401,7 +401,7 @@ class HumanPlayer(Player):
             self.chips = money_to_chips(self.chips['Amount'])
 
         # for loop over all chip colors/values:
-        for color in chip_colors:
+        for color in CHIP_COLORS:
 
             # doubling down:
             if move == 'Double Down':
@@ -430,16 +430,16 @@ class HumanPlayer(Player):
         amount_won = 0
 
        # for loop over all chip colors/values:
-        for color in chip_colors:
+        for color in CHIP_COLORS:
             # adding the total value of chips of current color in the wager times the payout coefficient to the amount
             # won:
-            amount_won += payout_coeffs[payout] * self.wagers[bet][color] * chip_values[color]
+            amount_won += PAYOUT_COEFFS[payout] * self.wagers[bet][color] * CHIP_VALUES[color]
 
         # converting the amount won into chips:
         added_chips = money_to_chips(amount_won)
 
         # for loop over all chip colors/values:
-        for color in chip_colors:
+        for color in CHIP_COLORS:
             # returning the chips from the wager to HumanPlayer's chips:
             self.chips[color] += self.wagers[bet][color]
             # adding the chips won on top of that:
@@ -458,7 +458,7 @@ class HumanPlayer(Player):
         :return: none
         """
         # checking if ne number of chips of each color in the Main Wager is divisible by 2:
-        for color in chip_colors:
+        for color in CHIP_COLORS:
 
             if self.wagers['Main Wager'][color] % 2 != 0:
                 chips_divisible = False
@@ -472,7 +472,7 @@ class HumanPlayer(Player):
             # adding half the Main Wager amount to HumanPlayer's chips total value:
             self.chips['Amount'] += self.wagers['Main Wager']['Amount'] / 2
             # adding half of the chips of each color in Main Wager to HumanPlayer's chips:
-            for color in chip_colors:
+            for color in CHIP_COLORS:
                 self.chips[color] += self.wagers['Main Wager'][color] / 2
 
         else:
@@ -528,8 +528,8 @@ class HumanPlayer(Player):
         self.display_chips('Chips')
         # displaying one high-value chip and 10 smaller-value chips it can be exchanged to:
         print(f"\nand {self.name}'s chip to exchange:")
-        print(f'{chip_symbols[color]} ✕ {chip_values[color]:5.2f}  =  ' + f'{chip_symbols[new_color]}'*10 +
-              f' ✕ {chip_values[new_color]:5.2f}\n' + RESET)
+        print(f'{CHIP_SYMBOLS[color]} ✕ {CHIP_VALUES[color]:5.2f}  =  ' + f'{CHIP_SYMBOLS[new_color]}' * 10 +
+              f' ✕ {CHIP_VALUES[new_color]:5.2f}\n' + RESET)
 
         choice = 'None'
 

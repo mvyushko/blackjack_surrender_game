@@ -9,9 +9,9 @@ from interactive_functions import ask_players_name, hit_or_stand, split_requeste
     double_down_requested, insurance_requested, press_enter_to_continue, cheque_change_requested, more_chips_requested,\
     replay
 from card_related_classes import Deck, surrender_offered
-from player_classes import Player, HumanPlayer, empty, new_split_hand_numbers
+from player_classes import Player, HumanPlayer, EMPTY, NEW_SPLIT_HAND_NUMBERS
 
-#gameplay functions:
+# gameplay functions:
 def players_turn(player, dealer, deck):
     """
     Plays a Hand (and all Split Hands created by splitting it) for the human player. Requires input from player.
@@ -103,9 +103,9 @@ def players_turn(player, dealer, deck):
                         # splitting the wager:
                         player.double_wager('Split', *new_split_wager_numbers)
                         # creating two new split hands:
-                        player.start_split_hand(new_split_hand_numbers[hand.split_hand_number][0],
+                        player.start_split_hand(NEW_SPLIT_HAND_NUMBERS[hand.split_hand_number][0],
                                                 new_split_wager_numbers[0])
-                        player.start_split_hand(new_split_hand_numbers[hand.split_hand_number][1],
+                        player.start_split_hand(NEW_SPLIT_HAND_NUMBERS[hand.split_hand_number][1],
                                                 new_split_wager_numbers[1])
                         # splitting the pair:
                         split_card1, split_card2 = hand.split_pair()
@@ -253,7 +253,7 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
 
     if insurance_possible:
 
-        # checking if Dealer's upcard is an Ace and if human player has any chips left::
+        # checking if Dealer's upcard is an Ace and if human player has any chips left:
         if dealer.hand.cards[0].rank == 'A' and player.chips['Amount'] > 0:
             print('\n' * 100)
             # showing dealer's cards one face up, one face down:
@@ -352,7 +352,7 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
             print('Dealer has a Blackjack! House has won!')
 
             # checking if an Insurance bet has been placed:
-            if player.wagers['Insurance'] != empty:
+            if player.wagers['Insurance'] != EMPTY:
                 print (f"{player.name}'s Insurance bet has won!")
                 player.add_winnings('2:1', 'Insurance')
 
@@ -379,7 +379,7 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
             print('Dealer has a Blackjack!')
 
             # checking if an Insurance bet has been placed:
-            if player.wagers['Insurance'] != empty:
+            if player.wagers['Insurance'] != EMPTY:
                 print(f"{player.name}'s Insurance bet has won!")
                 player.add_winnings('2:1', 'Insurance')
 
@@ -440,7 +440,7 @@ if __name__ == '__main__':
         # checking if player needs more chips:
         if need_more_chips:
 
-            if not first_round and plr.chips['Amount'] == 0:
+            if not first_round and plr.chips == EMPTY:
                 print('\n'*100)
                 print(f'\n{plr.name} has no chips left!')
             else:
@@ -502,7 +502,7 @@ if __name__ == '__main__':
 
         # checking if player's got any chips, or sufficient bankroll to purchase chips:
 
-        if plr.chips['Amount'] == 0 and plr.bankroll < 1:
+        if plr.chips == EMPTY and plr.bankroll < 1:
             break
         else:
             # asking if player wants to play again
@@ -518,7 +518,7 @@ if __name__ == '__main__':
                         plr.cheque_change(high_value_color)
 
                 # checking if player needs more chips
-                if plr.chips['Amount'] == 0:
+                if plr.chips == EMPTY:
                     need_more_chips = True
                 elif plr.bankroll < 1:
                     need_more_chips = False

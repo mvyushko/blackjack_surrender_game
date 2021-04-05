@@ -15,9 +15,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
-        player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': test_total}
+        test_wager_amount = 6
+        player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
+                        'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -44,10 +46,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 12},
+                                        'Amount': test_wager_amount * 2},
                  'Insurance': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 1': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                  'Split Wager 2': {'White': 0, 'Pink':0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -68,10 +71,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -98,10 +102,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 12},
+                                        'Amount': test_wager_amount * 2},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -122,10 +127,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -152,10 +158,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 12},
+                                        'Amount': test_wager_amount * 2},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -176,12 +183,13 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                       'Amount' : 6},
+                                       'Amount' : test_wager_amount},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
@@ -209,12 +217,13 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager/2, 'Pink': 0, 'Red': test_wager/2, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                       'Amount': 12},
+                                       'Amount': test_wager_amount * 2},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
@@ -235,13 +244,14 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                           'Amount': 6},
+                                           'Amount': test_wager_amount},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
@@ -268,14 +278,15 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager/2, 'Pink': 0, 'Red': test_wager/2, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                           'Amount': 12},
+                                           'Amount': test_wager_amount * 2},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips):
@@ -293,15 +304,16 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                           'Amount': 6}}
+                                           'Amount': test_wager_amount}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips):
         result_chips = player.add_winnings('1:1', 'Split Wager 3')
@@ -326,13 +338,14 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager / 2, 'Pink': 0, 'Red': test_wager / 2, 'Green': 0,
-                                        'Orange': 0, 'Amount': 6},
+                                        'Orange': 0, 'Amount': test_wager_amount},
             'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
             'Split Wager 1': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                              'Amount': 12},
+                              'Amount': test_wager_amount * 2},
             'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
             'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
@@ -351,14 +364,15 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                        'Amount': 6},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                           'Amount': 6},
+                                           'Amount': test_wager_amount},
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips)
@@ -384,15 +398,16 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 2
         test_total = 3.5
+        test_wager_amount = 6
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager / 2, 'Pink': 0, 'Red': test_wager / 2, 'Green': 0,
-                                        'Orange': 0, 'Amount': 6},
+                                        'Orange': 0, 'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 3': {'White': test_wager, 'Pink': 0, 'Red': test_wager, 'Green': 0, 'Orange': 0,
-                                           'Amount': 12}}
+                                           'Amount': test_wager_amount * 2}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips):
         result_chips = player.add_winnings('Tie', 'Split Wager 3')
@@ -409,10 +424,11 @@ class TestPayout(unittest.TestCase):
         test_chips = 1
         test_wager = 1
         test_total = 3.5
+        test_wager_amount = 3.5
         player.chips = {'White': test_chips, 'Pink': test_chips, 'Red': 0, 'Green': 0, 'Orange': 0,
                         'Amount': test_total}
         player.wagers = {'Main Wager': {'White': test_wager, 'Pink': test_wager, 'Red': 0, 'Green': 0, 'Orange': 0,
-                                        'Amount': 3.5},
+                                        'Amount': test_wager_amount},
                          'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                          'Split Wager 2': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -433,5 +449,3 @@ class TestPayout(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-

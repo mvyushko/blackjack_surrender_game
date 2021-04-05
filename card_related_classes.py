@@ -12,18 +12,18 @@ RED = Fore.LIGHTRED_EX
 RESET = Style.RESET_ALL
 
 # tuples containing all card suits and ranks:
-suits = ('♥', '♦', '♣', '♠')
-ranks = ('2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A')
+SUITS = ('♥', '♦', '♣', '♠')
+RANKS = ('2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A')
 
 # dictionary containing card values depending on rank:
-card_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10,
+CARD_VALUES = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10,
                'A': 11}
 
 # dictionary containing line-by-line card image printing patterns:
-patterns = {'top': ' ____ ', 'upper': '|    |', 'left': '| ', 'left_10': '|', 'right': ' |', 'bottom': '|____|',
+PATTERNS = {'top': ' ____ ', 'upper': '|    |', 'left': '| ', 'left_10': '|', 'right': ' |', 'bottom': '|____|',
             'space': ' '}
 # dictionary containing line-by-line face-down card image printing patterns:
-display_face_down = {1: ' ____ ', 2: '|____|', 3: '|____|', 4: '|____|'}
+DISPLAY_FACE_DOWN = {1: ' ____ ', 2: '|____|', 3: '|____|', 4: '|____|'}
 
 class Card:
     """
@@ -39,7 +39,7 @@ class Card:
         self.suit = suit
         self.rank = rank
         # Blackjack value of the Card (int):
-        self.value = card_values[rank]
+        self.value = CARD_VALUES[rank]
 
         # color used for displaying the Card:
         # black card suits use default color:
@@ -63,17 +63,17 @@ class Card:
         # '10' is the only two-symbol card rank. it needs a special 'left_10' pattern on the left (with no space
         # between the left border of the card image and the card symbol)
         if self.rank == '10':
-            left_border = patterns['left_10']
+            left_border = PATTERNS['left_10']
         else:
-            left_border = patterns['left']
+            left_border = PATTERNS['left']
 
         # build the line-by-line representation of the card image from items of the "patterns" dictionary,
         # and colored string representation of the card:
-        return {1: (RESET + patterns['top'] + patterns['space']),
-                2: (RESET + patterns['upper'] + patterns['space']),
+        return {1: (RESET + PATTERNS['top'] + PATTERNS['space']),
+                2: (RESET + PATTERNS['upper'] + PATTERNS['space']),
                 3: (RESET + left_border + self.color + self.__str__() + RESET +
-                    patterns['right'] + patterns['space']),
-                4: (RESET + patterns['bottom'] + patterns['space'])}
+                    PATTERNS['right'] + PATTERNS['space']),
+                4: (RESET + PATTERNS['bottom'] + PATTERNS['space'])}
 
 
 class Deck:
@@ -89,9 +89,9 @@ class Deck:
         self.deck_cards = []
 
         # adding 1 Card object of each suit and each rank to the list of Cards:/';mnj
-        for suit in suits:
+        for suit in SUITS:
 
-            for rank in ranks:
+            for rank in RANKS:
                 self.deck_cards.append(Card(suit, rank))
 
     def shuffle(self):
@@ -198,7 +198,7 @@ class Hand:
         for line_number in range(1, 5):
             # displaying the line concatenated from corresponding line of the first card line-by-line image, and
             # corresponding line of the "card face down" line-by-line image
-            print(self.cards[0].display_patterns()[line_number] + display_face_down[line_number])
+            print(self.cards[0].display_patterns()[line_number] + DISPLAY_FACE_DOWN[line_number])
 
     def split_pair(self):
         """

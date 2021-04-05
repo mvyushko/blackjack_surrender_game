@@ -31,13 +31,13 @@ else:
     RESET = colors.reset
 
 # tuple containing all chip colors:
-chip_colors = ('Orange', 'Green', 'Red', 'Pink', 'White')
+CHIP_COLORS = ('Orange', 'Green', 'Red', 'Pink', 'White')
 
 # dictionary containing chip values:
-chip_values = {'White': 1, 'Pink': 2.5, 'Red': 5, 'Green': 25, 'Orange': 50}
+CHIP_VALUES = {'White': 1, 'Pink': 2.5, 'Red': 5, 'Green': 25, 'Orange': 50}
 
 # dictionary containing chip symbols (letters 'O' of corresponding color, black letter 'O'  for a 'White' chip):
-chip_symbols = {'White': RESET + 'O', 'Pink': PINK + 'O', 'Red': RED + 'O',
+CHIP_SYMBOLS = {'White': RESET + 'O', 'Pink': PINK + 'O', 'Red': RED + 'O',
                 'Green': GREEN + 'O', 'Orange': ORANGE + 'O'}
 
 
@@ -47,8 +47,8 @@ def display_chip_values():
     """
     print('\nChip colors and values:')
 
-    for color in chip_colors:
-        print(f'{chip_symbols[color]} {color:<6} {chip_values[color]:>19.2f}' + RESET)
+    for color in CHIP_COLORS:
+        print(f'{CHIP_SYMBOLS[color]} {color:<6} {CHIP_VALUES[color]:>19.2f}' + RESET)
 
 def money_to_chips(amount_to_convert):
     """
@@ -82,12 +82,12 @@ def money_to_chips(amount_to_convert):
     # for loop over all chip colors except Pink (because Pink has a half-integer value, 2.50):
     for color in ('Orange', 'Green', 'Red', 'White'):
         # divide the amount to convert by the value corresponding to current chip color and take the integer part:
-        chips_added = int(amount_to_convert / chip_values[color])
+        chips_added = int(amount_to_convert / CHIP_VALUES[color])
         # add corresponding number of chips of current color to the chips dictionary:
         chips[color] += chips_added
         # add corresponding amount to the chips total value ("Amount"):
-        chips['Amount'] += chips_added * chip_values[color]
+        chips['Amount'] += chips_added * CHIP_VALUES[color]
         # and remove it from the amount to convert:
-        amount_to_convert -= chips_added * chip_values[color]
+        amount_to_convert -= chips_added * CHIP_VALUES[color]
 
     return chips
