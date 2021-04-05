@@ -10,13 +10,13 @@ import random
 import math
 import sys
 
-#checking the platform:
+# checking the platform:
 if sys.platform.startswith('win'):
-    #when running in Windows, use colorama for colored output:
+    # when running in Windows, use colorama for colored output:
     from colorama import init
     init()
     from colorama import Fore, Back, Style
-    #colors for output formatting:
+    # colors for output formatting:
     PINK = Fore.LIGHTMAGENTA_EX
     RED = Fore.LIGHTRED_EX
     GREEN = Fore.GREEN
@@ -24,9 +24,9 @@ if sys.platform.startswith('win'):
     RESET = Style.RESET_ALL
 
 else:
-    #use the colors module:
+    # use the colors module:
     from colors import colors
-    #colors for output formatting:
+    # colors for output formatting:
     PINK = colors.fg.pink
     RED = colors.fg.red
     GREEN = colors.fg.green
@@ -39,7 +39,7 @@ chip_colors = ('Orange', 'Green', 'Red', 'Pink', 'White')
 # dictionary containing chip values:
 chip_values = {'White': 1, 'Pink': 2.5, 'Red': 5, 'Green': 25, 'Orange': 50}
 
-#"empty" dictionary containing zero chips of each color:
+# "empty" dictionary containing zero chips of each color:
 empty = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
 # dictionary containing chip symbols (letters 'O' of corresponding color, black letter 'O'  for a 'White' chip):
@@ -60,13 +60,13 @@ patterns = {'top': ' ____ ', 'upper': '|    |', 'left': '| ', 'left_10': '|', 'r
 # dictionary containing line-by-line face-down card image printing patterns:
 display_face_down = {1: ' ____ ', 2: '|____|', 3: '|____|', 4: '|____|'}
 
-#dictionary containing all possible payout coefficients:
+# dictionary containing all possible payout coefficients:
 payout_coeffs = {'1:1': 1, '2:1': 2, '3:2': 1.5, 'Tie': 0}
 
-#dictionary containing pairs of split_hand_number attributes assigned to newly created split hands,  depending on which
-#hand they come from.
-#keys: split_hand_number attributes of hands being split
-#values: pairs of split_hand_number attributes assigned to hands created by splitting
+# dictionary containing pairs of split_hand_number attributes assigned to newly created split hands,  depending on which
+# hand they come from.
+# keys: split_hand_number attributes of hands being split
+# values: pairs of split_hand_number attributes assigned to hands created by splitting
 new_split_hand_numbers = {'0': ('1', '2'), '1': ('1.1', '1.2'), '2': ('2.1', '2.2')}
 
 
@@ -93,14 +93,14 @@ class Card:
         """
         self.suit = suit
         self.rank = rank
-        #Blackjack value of the Card (int):
+        # Blackjack value of the Card (int):
         self.value = card_values[rank]
 
-        #color used for displaying the Card:
-        #black card suits use default color:
+        # color used for displaying the Card:
+        # black card suits use default color:
         if self.suit in ['♣', '♠']:
             self.color = RESET
-        #red card suits use red:
+        # red card suits use red:
         else:
             self.color = RED
 
@@ -115,14 +115,14 @@ class Card:
         Returns a dictionary of patterns for line-by-line displaying  of an image of a card, using the patterns
         dictionary:
         """
-        #'10' is the only two-symbol card rank. it needs a special 'left_10' pattern on the left (with no space
-        #between the left border of the card image and the card symbol)
+        # '10' is the only two-symbol card rank. it needs a special 'left_10' pattern on the left (with no space
+        # between the left border of the card image and the card symbol)
         if self.rank == '10':
             left_border = patterns['left_10']
         else:
             left_border = patterns['left']
 
-        #build the line-by-line representation of the card image from items of the "patterns" dictionary,
+        # build the line-by-line representation of the card image from items of the "patterns" dictionary,
         # and colored string representation of the card:
         return {1: (RESET + patterns['top'] + patterns['space']),
                 2: (RESET + patterns['upper'] + patterns['space']),
@@ -140,10 +140,10 @@ class Deck:
         """
         Constructor for instantiating a Deck object
         """
-        #list of Card objects in the Deck:
+        # list of Card objects in the Deck:
         self.deck_cards = []
 
-        #adding 1 Card object of each suit and each rank to the list of Cards:/';mnj
+        # adding 1 Card object of each suit and each rank to the list of Cards:/';mnj
         for suit in suits:
 
             for rank in ranks:
@@ -179,11 +179,11 @@ class Hand:
         """
         self.type = hand_type
         self.split_hand_number = split_hand_number
-        #list of Cards in the Hand:
+        # list of Cards in the Hand:
         self.cards = []
-        #total Blackjack value of the Hand:
+        # total Blackjack value of the Hand:
         self.score = 0
-        #number of corresponding split wager (0 for the Main Wager):
+        # number of corresponding split wager (0 for the Main Wager):
         self.split_wager_number = split_wager_number
 
     def add_card_from_deck(self, deck):
@@ -191,11 +191,11 @@ class Hand:
         A method for taking cards from Deck and adding them to Hand
         :parameter deck: a Deck object
         """
-        #taking a Card from Deck:
+        # taking a Card from Deck:
         new_card = deck.deal_one()
-        #adding the Card to Hand:
+        # adding the Card to Hand:
         self.cards.append(new_card)
-        #adding the Card value to the score:
+        # adding the Card value to the score:
         self.score += new_card.value
 
         # changing the Ace value from 11 to 1 and adjusting the score:
@@ -212,30 +212,31 @@ class Hand:
         """
         Displays all cards in Hand face up
         """
-        #if there are no split hands, display the Hand as "player's cards":
+        # if there are no split hands, display the Hand as "player's cards":
         if self.type == 'Normal':
             print(f"\n\n{players_name}'s Cards:")
-        #if there are split hands, specify the split hand number and corresponding wager:
+        # if there are split hands, specify the split hand number and corresponding wager:
         else:
 
-            #if the Hand corresponds to Main Wager:
+            # if the Hand corresponds to Main Wager:
             if self.split_wager_number == 0:
                 print(f"\n\n{players_name}'s {self.type} {self.split_hand_number} (Main Wager):")
-            #if the hand corresponds to one of Split Wagers, specify the Split Wager number:
+            # if the hand corresponds to one of Split Wagers, specify the Split Wager number:
             else:
                 print(f"\n\n{players_name}'s {self.type} {self.split_hand_number}"
                   f" (Split Wager {self.split_wager_number}):")
 
-        #displaying all cards in Hand, from left to right, line-by-line:
-        #for loop over line numbers from 1 to 4:
+        # displaying all cards in Hand, from left to right, line-by-line:
+        # for loop over line numbers from 1 to 4:
         for line_number in range(1, 5):
-            #current line of the line-by-line image:
+            # current line of the line-by-line image:
             pattern = ''
 
-            #assembling the current line from corresponding lines of line-by-line images of each card:
+            # constructing the line to be printed by concatenating corresponding lines of line-by-line images of each
+            # card:
             for card in self.cards:
                 pattern += card.display_patterns()[line_number]
-            #printing the resulting line:
+            # printing the resulting line:
             print(pattern)
 
     def display_one_face_down(self, player):
@@ -248,10 +249,10 @@ class Hand:
 
         print(f"\n\n{player}'s Cards:")
 
-        #for loop over line numbers from 1 to 4:
+        # for loop over line numbers from 1 to 4:
         for line_number in range(1, 5):
-            #displaying the line assembled from corresponding line of the first card line-by-line image, and
-            #corresponding line of the "card face down" line-by-line image
+            # displaying the line concatenated from corresponding line of the first card line-by-line image, and
+            # corresponding line of the "card face down" line-by-line image
             print(self.cards[0].display_patterns()[line_number] + display_face_down[line_number])
 
     def split_pair(self):
@@ -259,15 +260,15 @@ class Hand:
         Splits a two-card Hand into two Cards and returns them
         :return: tuple containing two Card objects
         """
-        #checking if there are two cards in Hand:
+        # checking if there are two cards in Hand:
         if len(self.cards) == 2:
 
-            #removing both cards from Hand:
+            # removing both cards from Hand:
             split_card1 = self.cards.pop()
             split_card2 = self.cards.pop()
-            #setting the Hand score to zero:
+            # setting the Hand score to zero:
             self.score = 0
-            #returning the two Cards:
+            # returning the two Cards:
             return split_card1, split_card2
 
         else:
@@ -278,17 +279,17 @@ class Hand:
         Adds a Card object obtained by splitting a pair to Hand
         :param split_card: a Card object
         """
-        #checking if the card added from split is an Ace:
+        # checking if the card added from split is an Ace:
         if split_card.rank == 'A':
-            #an Ace initially counts as 11:
+            # an Ace initially counts as 11:
             split_card.value = 11
-            #adjusting the Hand score:
+            # adjusting the Hand score:
             self.score += 11
         else:
-            #adding the card value to the Hand score:
+            # adding the card value to the Hand score:
             self.score += split_card.value
 
-        #adding the Card to the list of Cards in Hand:
+        # adding the Card to the list of Cards in Hand:
         self.cards.append(split_card)
 
     def play_for_dealer(self, deck):
@@ -298,12 +299,12 @@ class Hand:
         :returns:  a tuple containing Dealer's final score, and a boolean showing if Dealer has a natural Blackjack
         :rtype: self.score: int, natural: bool
         """
-        #checking for a Natural Blackjack:
+        # checking for a Natural Blackjack:
         if self.score == 21:
             natural = True
         else:
             natural = False
-            #adding Cards from Deck until the score of soft 17:
+            # adding Cards from Deck until the score of soft 17:
             while self.score < 17:
                 self.add_card_from_deck(deck)
 
@@ -319,7 +320,7 @@ def surrender_offered(hand, dealer_upcard):
     """
     if hand.score in [14, 15, 16]:
 
-        #checking if Dealer's upcard is a 10 or an Ace:
+        # checking if Dealer's upcard is a 10 or an Ace:
         return dealer_upcard in ['10', 'J', 'Q', 'K', 'A']
 
     else:
@@ -349,30 +350,30 @@ def money_to_chips(amount_to_convert):
     :param amount_to_convert: monetary amount to be exchanged for chips
     :return: dictionary containing the number of chips of each color and their total value ('Amount'))
     """
-    #checking if amount to convert is non-negative:
+    # checking if amount to convert is non-negative:
     if amount_to_convert < 0:
         raise ValueError('Amount to convert should be greater than zero')
 
-    #initializing the dictionary containing the number of chips of each color and their total value ('Amount')
+    # initializing the dictionary containing the number of chips of each color and their total value ('Amount')
     chips = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
-    #fractional part of the amount to convert:
+    # fractional part of the amount to convert:
     fract_part = math.modf(amount_to_convert)[0]
 
-    #rounding quarter-integer amounts down to half-integers:
+    # rounding quarter-integer amounts down to half-integers:
     if fract_part in [0.25, 0.75]:
         discarded_amount = 0.25
         amount_to_convert -= discarded_amount
         fract_part -= discarded_amount
 
-    #use a Pink chip to get rid of half-integer values:
+    # use a Pink chip to get rid of half-integer values:
     if fract_part == 0.5 and amount_to_convert >= 2.5:
         chips['Pink'] += 1
         chips['Amount'] += 2.5
         amount_to_convert -= 2.5
 
-    #converting the remaining (integer) amount into integer-value chips:
-    #for loop over all chip colors except Pink (because Pink has a half-integer value, 2.50):
+    # converting the remaining (integer) amount into integer-value chips:
+    # for loop over all chip colors except Pink (because Pink has a half-integer value, 2.50):
     for color in ('Orange', 'Green', 'Red', 'White'):
         # divide the amount to convert by the value corresponding to current chip color and take the integer part:
         chips_added = int(amount_to_convert / chip_values[color])
@@ -396,16 +397,16 @@ class HumanPlayer(Player):
         Constructor for instantiating a HumanPlayer object
         """
         Player.__init__(self)
-        #HumanPlayer's name:
+        # HumanPlayer's name:
         self.name = name
-        #HumanPlayer's bankroll:
+        # HumanPlayer's bankroll:
         self.bankroll = 100
-        #List of HumanPlayer's split hands created by splitting pairs:
-        #maximum length of the list: 6
+        # List of HumanPlayer's split hands created by splitting pairs:
+        # maximum length of the list: 6
         self.split_hands = []
-        #Dictionary containing number of chips of each color in HumanPlayer's possession, and their total value:
+        # Dictionary containing number of chips of each color in HumanPlayer's possession, and their total value:
         self.chips = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
-        #Dictionary containing all HumanPlayer's current wagers and corresponding monetary amounts::
+        # Dictionary containing all HumanPlayer's current wagers and corresponding monetary amounts::
         self.wagers = {'Main Wager': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                        'Insurance': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
                        'Split Wager 1': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0},
@@ -419,7 +420,7 @@ class HumanPlayer(Player):
         :param split_wager_number(int): number assigned to the corresponding Split Wager (0 for the Main Wager, 1, 2,
          or 3 for Split Wagers)
         """
-        #adding the newly created Split Hand to HumanPlayer's split hand list:
+        # adding the newly created Split Hand to HumanPlayer's split hand list:
         self.split_hands.append(Hand('Split Hand', split_hand_number, split_wager_number))
 
     def display_bankroll(self):
@@ -439,116 +440,116 @@ class HumanPlayer(Player):
         Possible chip pile names: "Chips" (HumanPlayer's chips), "Main Wager", "Split Wager 1", "Split Wager 2",
         "Split Wager 3", "Insurance".
         """
-        #initializing the lists of "chip piles" and chip pile names to be displayed:
+        # initializing the lists of "chip piles" and chip pile names to be displayed:
         displayed_chip_piles = []
         displayed_chip_pile_names = []
 
         for chip_pile_name in args:
 
-            #if the "Chips" pile name is in args, "Chips" is added to the list of displayed "chip piles", regardless of
-            #whether or not it is empty:
+            # if the "Chips" pile name is in args, "Chips" is added to the list of displayed "chip piles", regardless of
+            # whether or not it is empty:
             if chip_pile_name == 'Chips':
                 displayed_chip_piles.append(self.chips)
                 displayed_chip_pile_names.append(chip_pile_name)
             else:
-                #the wagers are added to the list of displayed "chip piles" only if they aren't empty:
+                # the wagers are added to the list of displayed "chip piles" only if they aren't empty:
                 if self.wagers[chip_pile_name] != empty:
                     displayed_chip_piles.append(self.wagers[chip_pile_name])
                     displayed_chip_pile_names.append(chip_pile_name)
 
-        #printing the chip pile names at the top of each column:
+        # printing the chip pile names at the top of each column:
         for pile_and_name in zip(displayed_chip_piles, displayed_chip_pile_names):
 
-            #checking if the current chip pile is the HumanPlayer's "Chips" pile:
+            # checking if the current chip pile is the HumanPlayer's "Chips" pile:
             if pile_and_name[1] == 'Chips':
-                #print the HumanPlayer's "Chips" pile name regardless of whether there are any chips to display in this
-                #column:
+                # print the HumanPlayer's "Chips" pile name regardless of whether there are any chips to display in this
+                # column:
                 print(f"{self.name}'s Chips:", end = '')
 
-                #checking if HumanPlayer has run out of chips:
+                # checking if HumanPlayer has run out of chips:
                 if self.chips == empty:
                     print (" No chips Left!", end = '')
-                    #blank space up to column width:
+                    # blank space up to column width:
                     space = (19 - len(self.name) - len(pile_and_name[1]) + 5) * ' '
                 else:
-                    #blank space up to column width:
+                    # blank space up to column width:
                     space = ((34 - len(self.name) - len(pile_and_name[1]) + 5) * ' ')
 
-            #for the wager "Chip Piles":
+            # for the wager "Chip Piles":
             else:
-                #printing the chip pile name:
+                # printing the chip pile name:
                 print(f"{self.name}'s {pile_and_name[1]}:", end = '')
-                #space left up to column width:
+                # space left up to column width:
                 space = (34 - len(self.name) - len(pile_and_name[1]) + 5) * ' '
 
-            #insert blank space up to column width after each column name:
+            # insert blank space up to column width after each column name:
             print(space, end='')
 
-        #go to next line:
+        # go to next line:
         print('')
 
-        #printing the chip symbols in columns corresponding to chip piles:
-        #for loop over all chip colors:
+        # printing the chip symbols in columns corresponding to chip piles:
+        # for loop over all chip colors:
         for color in chip_colors:
 
-            #list of chips of current color left to display in each column(pile):
+            # list of chips of current color left to display in each column(pile):
             chips_left_to_display = []
-            #list of same length containing zeros only:
+            # list of same length containing zeros only:
             zero_list = []
 
-            #for loop over displayed chip piles:
+            # for loop over displayed chip piles:
             for pile in displayed_chip_piles:
-                #adding the number of chips of current color in the current pile to the chips_left_to_display list:
+                # adding the number of chips of current color in the current pile to the chips_left_to_display list:
                 chips_left_to_display.append(pile[color])
-                #adding a zero to the zero list:
+                # adding a zero to the zero list:
                 zero_list.append(0)
 
-            #checking if there are any chips left to display:
+            # checking if there are any chips left to display:
             while chips_left_to_display != zero_list:
 
-                #for loop over displayed chip piles:
+                # for loop over displayed chip piles:
                 for index in range(len(displayed_chip_pile_names)):
 
-                    #Only 30 chip symbols fit in a column. If there are more than 30 chips of any color in any pile,
-                    #the remaining chip symbols (chips left to display) are carried over to next line
+                    # Only 30 chip symbols fit in a column. If there are more than 30 chips of any color in any pile,
+                    # the remaining chip symbols (chips left to display) are carried over to next line
                     if chips_left_to_display[index] > 30:
-                        #number of chips displayed in current line
+                        # number of chips displayed in current line
                         displayed_chips_number = 30
-                        #number of chips carried over to next line
+                        # number of chips carried over to next line
                         chips_left_to_display[index] -= 30
                     else:
-                        #if all remaining chips fit in the column width, display them all in current line:
+                        # if all remaining chips fit in the column width, display them all in current line:
                         displayed_chips_number = chips_left_to_display[index]
-                        #no chips are carried over to next line:
+                        # no chips are carried over to next line:
                         chips_left_to_display[index] = 0
 
-                    #printing the chip symbols to be displayed in current line:
+                    # printing the chip symbols to be displayed in current line:
                     print(chip_symbols[color] * displayed_chips_number, end='')
 
-                    #checking if we just finished displaying all chips of current color in current pile
-                    #(and if there were any):
+                    # checking if we just finished displaying all chips of current color in current pile
+                    # (and if there were any):
                     if displayed_chip_piles[index][color] > 0 and chips_left_to_display[index] == 0 and\
                             displayed_chips_number > 0:
 
-                        #print the value corresponding to current chip color:
+                        # print the value corresponding to current chip color:
                         print(f' x {chip_values[color]:5.2f}' + RESET, end='')
-                        #space left up to column width:
+                        # space left up to column width:
                         space = (30 - displayed_chips_number + 5) * ' '
 
-                    #if we have just printed 30 chip symbols and there still are chips of current color in current pile
-                    #left to display:
+                    # if we have just printed 30 chip symbols and there still are chips of current color in current pile
+                    # left to display:
                     elif chips_left_to_display[index] > 0:
-                        #space left up to column width:
+                        # space left up to column width:
                         space = 13 * ' '
-                    #if there aren't any chips of current color in current pile, or we had finished displaying them in
-                    #one of previous cycles:
+                    # if there aren't any chips of current color in current pile, or we had finished displaying them in
+                    # one of previous cycles:
                     else:
-                        #leave the line empty:
+                        # leave the line empty:
                         space = 43 * ' '
 
-                    #insert the empty space up to the column width:
+                    # insert the empty space up to the column width:
                     print(space, end='')
-                #go to next line:
+                # go to next line:
                 print('')
 
 
@@ -559,69 +560,69 @@ class HumanPlayer(Player):
         while True:
             print('\nPlease choose chips to purchase!')
 
-            #a for loop over all chip colors and values:
+            # a for loop over all chip colors and values:
             for color in chip_colors:
 
-                #checking if there is enough money in HumanPlayer's bankroll to purchase at least 1 chip:
+                # checking if there is enough money in HumanPlayer's bankroll to purchase at least 1 chip:
                 if self.bankroll >= 1:
 
-                    #checking if bankroll is sufficient to buy at least one chip of current color:
+                    # checking if bankroll is sufficient to buy at least one chip of current color:
                     if chip_values[color] <= self.bankroll:
-                        #display HumanPlayer's bankroll:
+                        # display HumanPlayer's bankroll:
                         self.display_bankroll()
-                        #display all chip colors and values:
+                        # display all chip colors and values:
                         display_chip_values()
 
-                        #a while loop asking for input until a valid number of chips to purchase is entered:
+                        # a while loop asking for input until a valid number of chips to purchase is entered:
                         while True:
 
-                            #asking for input and checking if it is an integer:
+                            # asking for input and checking if it is an integer:
                             try:
                                 choice = int(input(f'\nPlease enter the number of {color} chips: '))
                             except ValueError:
                                 print("Sorry, I don't understand! Please try again")
                             else:
 
-                                #checking for a negative number:
+                                # checking for a negative number:
                                 if choice < 0:
                                     print("Sorry, I don't understand! Please try again")
-                                #checking if input exceeds the bankroll:
+                                # checking if input exceeds the bankroll:
                                 elif choice * chip_values[color] > self.bankroll:
                                     print('Bankroll too low! Please try again')
                                 else:
-                                    #when input is valid:
-                                    #adding the number of chips of current color entered by the player to HumanPlayer's
-                                    #chip pile:
+                                    # when input is valid:
+                                    # adding the number of chips of current color entered by the player to HumanPlayer's
+                                    # chip pile:
                                     self.chips[color] += choice
-                                    #add the corresponding amount to the total value of HumanPlayer's chips:
+                                    # add the corresponding amount to the total value of HumanPlayer's chips:
                                     self.chips['Amount'] += choice * chip_values[color]
-                                    #remove the same amount from HumanPlayer's bankroll:
+                                    # remove the same amount from HumanPlayer's bankroll:
                                     self.bankroll -= choice * chip_values[color]
-                                    #clear screen:
+                                    # clear screen:
                                     print('\n'*100)
 
-                                    #checking if HumanPlayer has got any chips to display:
+                                    # checking if HumanPlayer has got any chips to display:
                                     if self.chips['Amount'] > 0:
-                                        #display HumanPlayer's chips:
+                                        # display HumanPlayer's chips:
                                         self.display_chips('Chips')
                                     break
 
-                #if not enough money in the bankroll to purchase at least 1 chip:
+                # if not enough money in the bankroll to purchase at least 1 chip:
                 else:
                     break
 
-            #if no chips have been purchased:
+            # if no chips have been purchased:
             else:
 
-                #checking if HumanPlayer has got any chips from previous purchases:
+                # checking if HumanPlayer has got any chips from previous purchases:
                 if self.chips['Amount'] > 0:
                     break
 
-            #if not enough money left in the bankroll to purchase at least 1 more chip:
+            # if not enough money left in the bankroll to purchase at least 1 more chip:
             if self.bankroll < 1:
                 break
 
-        #display updated bankroll after purchasing chips:
+        # display updated bankroll after purchasing chips:
         self.display_bankroll()
 
     def place_bet(self, bet):
@@ -637,63 +638,63 @@ class HumanPlayer(Player):
 
         bet_amount = 0
 
-        #while loop checking if bet has been placed:
+        # while loop checking if bet has been placed:
         while bet_amount == 0:
             print(f'Please place your{bet_name} bet!')
 
-            #for loop over all chip colors/values:
+            # for loop over all chip colors/values:
             for color in chip_colors:
 
-                #checking if HumanPlayer has any chips of current color to display
+                # checking if HumanPlayer has any chips of current color to display
                 if self.chips[color] > 0:
-                    #display HumanPlayer's chips:
+                    # display HumanPlayer's chips:
                     self.display_chips('Chips')
                     print('\n')
 
-                    #displaying chips in all HumanPlayer's wagers:
+                    # displaying chips in all HumanPlayer's wagers:
                     self.display_chips(*self.wagers.keys())
 
-                    #while loop asking for input until valid number of chips of current color to bet with is received:
+                    # while loop asking for input until valid number of chips of current color to bet with is received:
                     while True:
 
-                        #asking for input and checking if it is an integer:
+                        # asking for input and checking if it is an integer:
                         try:
                             choice = int(input(f'\nPlease enter the number of {color} chips to bet with: '))
                         except ValueError:
                             print("Sorry, I don't understand! Please try again")
                         else:
 
-                            #checking for a negative number:
+                            # checking for a negative number:
                             if choice < 0:
                                 print("Sorry, I don't understand! Please try again")
-                            #checking if input exceeds number of HumanPlayer's chips of current color:
+                            # checking if input exceeds number of HumanPlayer's chips of current color:
                             elif choice > self.chips[color]:
                                 print(f'Not enough {color} chips! Please try again')
-                            #when input is a valid number of chips to bet with:
+                            # when input is a valid number of chips to bet with:
                             else:
-                                #adding the number of chips of current color entered by the player to the wager:
+                                # adding the number of chips of current color entered by the player to the wager:
                                 self.wagers[bet][color] = choice
-                                #adding the corresponding value to current bet amount:
+                                # adding the corresponding value to current bet amount:
                                 bet_amount += choice * chip_values[color]
                                 # adding the same value to the wager amount:
                                 self.wagers[bet]['Amount'] += choice * chip_values[color]
-                                #removing the number of chips entered by the player from HumanPlayer's chips:
+                                # removing the number of chips entered by the player from HumanPlayer's chips:
                                 self.chips[color] -= choice
-                                #removing their value from total value of HumanPlayer's chips:
+                                # removing their value from total value of HumanPlayer's chips:
                                 self.chips['Amount'] -= choice * chip_values[color]
 
-                                #clearing screen:
+                                # clearing screen:
                                 print('\n'*100)
                                 break
 
-                    #checking if HumanPlayer has any chips left:
+                    # checking if HumanPlayer has any chips left:
                     if self.chips == empty:
                         break
 
-        #display remaining HumanPlayer's chips:
+        # display remaining HumanPlayer's chips:
         self.display_chips('Chips')
         print('\n')
-        #display chips in all HumanPlayer's wagers:
+        # display chips in all HumanPlayer's wagers:
         self.display_chips(*self.wagers.keys())
 
     def double_wager(self, move, split_wager_number = 0, new_split_wager_number = 1):
@@ -709,60 +710,60 @@ class HumanPlayer(Player):
          chips dictionary (self.chips)
          :rtype: self.wagers(dict), self.chips(dict)
         """
-        #Determining which wager is to be doubled or split:
+        # Determining which wager is to be doubled or split:
         if split_wager_number == 0:
-            #doubling or splitting the Main Wager:
+            # doubling or splitting the Main Wager:
             doubled_wager_name = 'Main Wager'
         else:
             # doubling or splitting a Split Wager:
             doubled_wager_name = f'Split Wager {split_wager_number}'
 
-        #for loop over all chip colors/values:
+        # for loop over all chip colors/values:
         for color in chip_colors:
 
-            #checking if HumanPlayer has at least same number of chips of current color as there are in in the wager:
+            # checking if HumanPlayer has at least same number of chips of current color as there are in in the wager:
             if self.chips[color] < self.wagers[doubled_wager_name][color]:
                 enough_chips_of_each_color = False
                 break
 
-        #if HumanPlayer has at least same number of chips of each color as there are in the wager:
+        # if HumanPlayer has at least same number of chips of each color as there are in the wager:
         else:
             enough_chips_of_each_color = True
 
-        #subtracting the wager amount from total value of HumanPlayer's chips:
+        # subtracting the wager amount from total value of HumanPlayer's chips:
         self.chips['Amount'] -= self.wagers[doubled_wager_name]['Amount']
 
-        #doubling the wager amount:
+        # doubling the wager amount:
         if move == 'Double Down':
             self.wagers[doubled_wager_name]['Amount'] = self.wagers[doubled_wager_name]['Amount'] * 2
-        #splitting the wager amount:
+        # splitting the wager amount:
         elif move == 'Split':
             self.wagers[f'Split Wager {new_split_wager_number}']['Amount'] = self.wagers[doubled_wager_name]['Amount']
 
-        #checking if HumanPlayer has enough chips of each color:
+        # checking if HumanPlayer has enough chips of each color:
         if enough_chips_of_each_color:
 
-            #for loop over all chip colors/values:
+            # for loop over all chip colors/values:
             for color in chip_colors:
-                #remove the chips to be added to the wager from HumanPlayer's chip pile:
+                # remove the chips to be added to the wager from HumanPlayer's chip pile:
                 self.chips[color] -= self.wagers[doubled_wager_name][color]
 
-        #if there aren't enough chips of each color:
+        # if there aren't enough chips of each color:
         else:
-            #convert into chips the amount remaining after subtracting the wager amount from total value of
-            #HumanPlayer's chips:
+            # convert into chips the amount remaining after subtracting the wager amount from total value of
+            # HumanPlayer's chips:
             self.chips = money_to_chips(self.chips['Amount'])
 
-        #for loop over all chip colors/values:
+        # for loop over all chip colors/values:
         for color in chip_colors:
 
-            #doubling down:
+            # doubling down:
             if move == 'Double Down':
-                #doubling the number of chips of each color in the main wager:
+                # doubling the number of chips of each color in the main wager:
                 self.wagers[doubled_wager_name][color] = 2 * self.wagers[doubled_wager_name][color]
-            #splitting:
+            # splitting:
             elif move == 'Split':
-                #creating a split wager containing same number of chips as the initial wager
+                # creating a split wager containing same number of chips as the initial wager
                 self.wagers[f'Split Wager {new_split_wager_number}'][color] = self.wagers[doubled_wager_name][color]
 
         return self.wagers, self.chips
@@ -778,29 +779,29 @@ class HumanPlayer(Player):
         :return: the updated self.chips dictionary
         :rtype: dict
         """
-        #determining the amount won on top of the wager amount:
-        #initializing the amount won as zero:
+        # determining the amount won on top of the wager amount:
+        # initializing the amount won as zero:
         amount_won = 0
 
-       #for loop over all chip colors/values:
+       # for loop over all chip colors/values:
         for color in chip_colors:
-            #adding the total value of chips of current color in the wager times the payout coefficient to the amount
-            #won:
+            # adding the total value of chips of current color in the wager times the payout coefficient to the amount
+            # won:
             amount_won += payout_coeffs[payout] * self.wagers[bet][color] * chip_values[color]
 
-        #converting the amount won into chips:
+        # converting the amount won into chips:
         added_chips = money_to_chips(amount_won)
 
-        #for loop over all chip colors/values:
+        # for loop over all chip colors/values:
         for color in chip_colors:
-            #returning the chips from the wager to HumanPlayer's chips:
+            # returning the chips from the wager to HumanPlayer's chips:
             self.chips[color] += self.wagers[bet][color]
-            #adding the chips won on top of that:
+            # adding the chips won on top of that:
             self.chips[color] += added_chips[color]
 
-        #returning the wager amount to total value of HumanPlayer's chips:
+        # returning the wager amount to total value of HumanPlayer's chips:
         self.chips['Amount'] += self.wagers[bet]['Amount']
-        #adding the value of the chips won on top of that:
+        # adding the value of the chips won on top of that:
         self.chips['Amount'] += added_chips['Amount']
 
         return self.chips
@@ -810,7 +811,7 @@ class HumanPlayer(Player):
         Returns half of the Main Wager to HumanPlayer's chip pile in case of Surrender
         :return: none
         """
-        #checking if ne number of chips of each color in the Main Wager is divisible by 2:
+        # checking if ne number of chips of each color in the Main Wager is divisible by 2:
         for color in chip_colors:
 
             if self.wagers['Main Wager'][color] % 2 != 0:
@@ -824,15 +825,15 @@ class HumanPlayer(Player):
 
             # adding half the Main Wager amount to HumanPlayer's chips total value:
             self.chips['Amount'] += self.wagers['Main Wager']['Amount'] / 2
-            #adding half of the chips of each color in Main Wager to HumanPlayer's chips:
+            # adding half of the chips of each color in Main Wager to HumanPlayer's chips:
             for color in chip_colors:
                 self.chips[color] += self.wagers['Main Wager'][color] / 2
 
         else:
-            #converting half of Main Wager amount into chips:
+            # converting half of Main Wager amount into chips:
             chips_to_return = money_to_chips(self.wagers['Main Wager']['Amount'] / 2)
 
-            #adding the result to HumanPlayer's chip pile:
+            # adding the result to HumanPlayer's chip pile:
             for key in self.chips:
                 self.chips[key] += chips_to_return[key]
 
@@ -867,10 +868,10 @@ class HumanPlayer(Player):
         chips and displays the result; requires input from player to approve of the exchange
         :param color: color of HumanPlayer's highest-value chip
         """
-        #removing the high-value chip from HumanPlayer's chip pile:
+        # removing the high-value chip from HumanPlayer's chip pile:
         self.chips[color] -= 1
 
-        #determining the color of 10 times smaller value chips:
+        # determining the color of 10 times smaller value chips:
         if color == 'Orange':
             new_color = 'Red'
         elif color == 'Green':
@@ -879,40 +880,40 @@ class HumanPlayer(Player):
         # displaying the rest of HumanPlayer's chips:
         print('\n' * 100)
         self.display_chips('Chips')
-        #displaying one high-value chip and 10 smaller-value chips it can be exchanged to:
+        # displaying one high-value chip and 10 smaller-value chips it can be exchanged to:
         print(f"\nand {self.name}'s chip to exchange:")
         print(f'{chip_symbols[color]} ✕ {chip_values[color]:5.2f}  =  ' + f'{chip_symbols[new_color]}'*10 +
               f' ✕ {chip_values[new_color]:5.2f}\n' + RESET)
 
         choice = 'None'
 
-        #while loop asking if player approves of the exchange until answer is valid:
+        # while loop asking if player approves of the exchange until answer is valid:
         while choice.casefold() not in ['y', 'n']:
             choice = input('Do you approve of this exchange? (Y or N): ')
 
-            #checking if input value is valid:
+            # checking if input value is valid:
             if choice.casefold() not in ['y', 'n']:
                 print("Sorry, I don't understand! Please choose Y or N")
 
-        #determining if exchange is approved:
+        # determining if exchange is approved:
         if choice.casefold() == 'y':
             approved = True
         else:
             approved = False
 
         if approved:
-            #adding 10 smaller-value chips to HumanPlayer's chip pile:
+            # adding 10 smaller-value chips to HumanPlayer's chip pile:
             self.chips[new_color] += 10
         else:
-            #returning the high-value chip to HumanPlayer's chip pile:
+            # returning the high-value chip to HumanPlayer's chip pile:
             self.chips[color] += 1
 
-        #displaying the result:
+        # displaying the result:
         print('\n' * 100)
         self.display_chips('Chips')
 
 
-#functions interacting with player:
+# functions interacting with player:
 
 def ask_players_name():
     """
@@ -938,10 +939,10 @@ def hit_or_stand():
     while True:
         choice = input('Please choose Hit or Stand (H/S): ').casefold()
 
-        #checking the input:
+        # checking the input:
         if choice not in ['h', 's']:
             print("Sorry, I don't understand! Please try again")
-        #if choice is valid:
+        # if choice is valid:
         elif choice == 'h':
             return True
         else:
@@ -958,11 +959,11 @@ def double_down_requested():
     while choice.casefold() not in ['y', 'n']:
         choice = input('\nDo you want to double down? (Y or N): ')
 
-        #checking the input:
+        # checking the input:
         if choice.casefold() not in ['y', 'n']:
             print("Sorry, I don't understand! Please choose Y or N")
 
-    #if choice is valid:
+    # if choice is valid:
     return choice.casefold() == 'y'
 
 def insurance_requested():
@@ -1030,7 +1031,7 @@ def replay():
     while choice.casefold() not in ['y', 'n']:
         choice = input('Do you want to play again? (Y or N): ')
 
-        #checking the input:
+        # checking the input:
         if choice.casefold() not in ['y', 'n']:
             print("Sorry, I don't understand! Please choose Y or N")
 
@@ -1048,7 +1049,7 @@ def more_chips_requested():
     while choice.casefold() not in ['y', 'n']:
         choice = input('Do you want to get more chips? (Y or N): ')
 
-        #checking the input:
+        # checking the input:
         if choice.casefold() not in ['y', 'n']:
             print("Sorry, I don't understand! Please choose Y or N")
 
@@ -1062,7 +1063,7 @@ def cheque_change_requested(color):
     """
     choice = 'None'
 
-    #determining which indefinite article to use in the question:
+    # determining which indefinite article to use in the question:
     if color == 'Orange':
         article = 'an'
     else:
@@ -1098,37 +1099,37 @@ def players_turn(player, dealer, deck):
      a list of booleans showing if there was a Natural Blackjack for each hand played; a list of names of
     corresponding wagers for each hand played; and a boolean showing if surrender has been requested.
     """
-    #creating the list of all human player's Blackjack hands left to play:
+    # creating the list of all human player's Blackjack hands left to play:
     hand_list = [player.hand]
-    #variable score_list will be used to store the list of final scores of all hands played:
+    # variable score_list will be used to store the list of final scores of all hands played:
     score_list = []
-    #variable natural_list will be used to store the list of booleans showing if there was a Natural Blackjack for each
-    #hand played:
+    # variable natural_list will be used to store the list of booleans showing if there was a Natural Blackjack for each
+    # hand played:
     natural_list = []
     # variable natural_list will be used to store the list of names of corresponding wagers for each hand played:
     wager_list = []
-    #variable sr_requested will be used to store the boolean showing whether or not surrender is requested
+    # variable sr_requested will be used to store the boolean showing whether or not surrender is requested
     sr_requested = False
 
-    #while loop checking if there are any hands left to play:
+    # while loop checking if there are any hands left to play:
     while len(hand_list) > 0:
-        #removing a hand to be played from the list:
+        # removing a hand to be played from the list:
         hand = hand_list.pop(0)
 
-        #clearing the screen:
+        # clearing the screen:
         print('\n' * 100)
-        #showing dealer's cards one face up, one face down:
+        # showing dealer's cards one face up, one face down:
         dealer.hand.display_one_face_down('Dealer')
-        #showing human player's cards face up:
+        # showing human player's cards face up:
         hand.display_face_up(player.name)
 
-        #determining which wager corresponds to the hand being played:
+        # determining which wager corresponds to the hand being played:
         if hand.split_wager_number == 0:
             wager_name = 'Main Wager'
         else:
             wager_name = f'Split Wager {hand.split_wager_number}'
 
-        #checking for the natural Blackjack:
+        # checking for the natural Blackjack:
         if hand.score == 21:
             natural = True
             print('\nBLACKJACK!')
@@ -1136,10 +1137,10 @@ def players_turn(player, dealer, deck):
         else:
             natural = False
 
-            #checking if surrender is possible on this hand:
+            # checking if surrender is possible on this hand:
             if hand.type == 'Normal' and dealer.hand.score != 21 and player.wagers[wager_name]['Amount'] > 1:
 
-                #checking if player has been dealt a 14, 15, 16, or 17:
+                # checking if player has been dealt a 14, 15, 16, or 17:
                 if surrender_offered(hand, dealer.hand.cards[0].rank):
                     sr_requested = surrender_requested()
 
@@ -1147,24 +1148,24 @@ def players_turn(player, dealer, deck):
                         player.surrender()
                         break
 
-            #checking if splitting is allowed for this hand:
+            # checking if splitting is allowed for this hand:
             if hand.type == 'Normal' or hand.split_hand_number in ['1', '2']:
 
-                #checking if there is a pair of same-rank cards and if human player has enough chips for a split:
+                # checking if there is a pair of same-rank cards and if human player has enough chips for a split:
                 if hand.cards[0].rank == hand.cards[1].rank and player.chips['Amount'] >= \
                         player.wagers[wager_name]['Amount']:
 
-                    #displaying all human player's chips and wagers:
+                    # displaying all human player's chips and wagers:
                     print('\n')
                     player.display_chips('Chips')
                     print('\n')
                     player.display_chips(*player.wagers.keys())
 
-                    #asking if human player wants to split the pair:
+                    # asking if human player wants to split the pair:
                     if split_requested():
 
-                        #splitting:
-                        #determining the new split wager numbers:
+                        # splitting:
+                        # determining the new split wager numbers:
                         if hand.type == 'Normal':
                             new_split_wager_numbers = (0, 1)
                         elif hand.type == 'Split Hand' and hand.split_hand_number == '1':
@@ -1176,128 +1177,128 @@ def players_turn(player, dealer, deck):
                             elif len(player.split_hands) == 4:
                                 new_split_wager_numbers = (1, 3)
 
-                        #splitting the wager:
+                        # splitting the wager:
                         player.double_wager('Split', *new_split_wager_numbers)
-                        #creating two new split hands:
+                        # creating two new split hands:
                         player.start_split_hand(new_split_hand_numbers[hand.split_hand_number][0],
                                                 new_split_wager_numbers[0])
                         player.start_split_hand(new_split_hand_numbers[hand.split_hand_number][1],
                                                 new_split_wager_numbers[1])
-                        #splitting the pair:
+                        # splitting the pair:
                         split_card1, split_card2 = hand.split_pair()
 
-                        #adding one of the split cards to each split hand:
+                        # adding one of the split cards to each split hand:
                         player.split_hands[-2].add_card_from_split(split_card1)
                         player.split_hands[-1].add_card_from_split(split_card2)
 
-                        #adding one card from deck to each split hand:
+                        # adding one card from deck to each split hand:
                         player.split_hands[-2].add_card_from_deck(deck)
                         player.split_hands[-1].add_card_from_deck(deck)
                         hand_list = [player.split_hands[-2], player.split_hands[-1]] + hand_list
-                        #clearing the screen:
+                        # clearing the screen:
                         print('\n' * 100)
-                        #displaying the updated human player's chips and wagers:
+                        # displaying the updated human player's chips and wagers:
                         player.display_chips('Chips')
                         print('\n')
                         player.display_chips(*player.wagers.keys())
-                        #asking the player to press enter to continue:
+                        # asking the player to press enter to continue:
                         press_enter_to_continue()
                         continue
 
-        #checking if doubling down is possible:
+        # checking if doubling down is possible:
         if hand.score in [10, 11] and player.chips['Amount'] >= player.wagers[wager_name]['Amount']:
-            #clearing the screen:
+            # clearing the screen:
             print('\n' * 100)
             # showing dealer's cards one face up, one face down:
             dealer.hand.display_one_face_down('Dealer')
             # showing human player's cards face up:
             hand.display_face_up(player.name)
             print('\n')
-            #displaying all human player's chips and wagers:
+            # displaying all human player's chips and wagers:
             player.display_chips('Chips')
             print('\n')
             player.display_chips(*player.wagers.keys())
-            #asking if human player wants to double down:
+            # asking if human player wants to double down:
             dd_requested = double_down_requested()
 
-            #doubling down:
+            # doubling down:
             if dd_requested:
-                #doubling the wager:
+                # doubling the wager:
                 player.double_wager('Double Down', hand.split_wager_number)
-                #clearing the screen:
+                # clearing the screen:
                 print('\n' * 100)
-                #displaying the updated human player's chips and wagers:
+                # displaying the updated human player's chips and wagers:
                 player.display_chips('Chips')
                 print('\n')
                 player.display_chips(*player.wagers.keys())
-                #asking human player to press enter to continue:
+                # asking human player to press enter to continue:
                 press_enter_to_continue()
-                #clearing the screen:
+                # clearing the screen:
                 print('\n' * 100)
                 # showing dealer's cards one face up, one face down:
                 dealer.hand.display_one_face_down('Dealer')
                 # showing human player's cards face up:
                 hand.display_face_up(player.name)
 
-        #doubling down not possible:
+        # doubling down not possible:
         else:
             dd_requested = False
 
-        #checking if human player has split a pair of Aces:
+        # checking if human player has split a pair of Aces:
         if hand.type == 'Split Hand' and hand.cards[0].rank == 'A':
-            #the player is only allowed to draw one card on each split Ace:
+            # the player is only allowed to draw one card on each split Ace:
             print("\nYou can't take any more cards to this hand (split Aces)")
             hit = False
-            #asking human player to press enter to continue:
+            # asking human player to press enter to continue:
             press_enter_to_continue()
-        #in all other cases, player is allowed to draw at least one more card:
+        # in all other cases, player is allowed to draw at least one more card:
         else:
             hit = True
 
-        #while loop checking if the hand score is still less than 21, and human player is allowed and willing to hit one
-        #more card:
+        # while loop checking if the hand score is still less than 21, and human player is allowed and willing to hit one
+        # more card:
         while hand.score < 21 and hit:
-            #asking human player to choose hit or stand:
+            # asking human player to choose hit or stand:
             hit = hit_or_stand()
-            #hitting:
+            # hitting:
             if hit:
-                #adding one card from deck to the hand:
+                # adding one card from deck to the hand:
                 hand.add_card_from_deck(deck)
-                #clearing the screen:
+                # clearing the screen:
                 print('\n' * 100)
                 # showing dealer's cards one face up, one face down:
                 dealer.hand.display_one_face_down('Dealer')
                 # showing human player's cards face up:
                 hand.display_face_up(player.name)
 
-                #checking if there was a double down:
+                # checking if there was a double down:
                 if dd_requested and hand.score < 21:
-                    ##the player is only allowed to draw one card after doubling down:
+                    # the player is only allowed to draw one card after doubling down:
                     print("\nYou can't take any more cards to this hand (Double Down)")
                     hit = False
                     # asking human player to press enter to continue:
                     press_enter_to_continue()
 
-                #checking for a bust:
+                # checking for a bust:
                 if hand.score > 21:
                     print('\nBUST!')
                     # asking human player to press enter to continue:
                     press_enter_to_continue()
-                #checking for a 21:
+                # checking for a 21:
                 elif hand.score == 21:
                     print('\n'
                           'YOU HAVE A 21!')
                     # asking human player to press enter to continue:
                     press_enter_to_continue()
 
-        #adding the final hand score to the score list:
+        # adding the final hand score to the score list:
         score_list.append(hand.score)
-        #adding the boolean showing whether there was a natural Blackjack to the natural list:
+        # adding the boolean showing whether there was a natural Blackjack to the natural list:
         natural_list.append(natural)
-        #adding the name of corresponding wager to the wager list:
+        # adding the name of corresponding wager to the wager list:
         wager_list.append(wager_name)
 
-    #after all hands have been played, return the score list and the natural list:
+    # after all hands have been played, return the score list and the natural list:
     return score_list, natural_list, wager_list, sr_requested
 
 def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
@@ -1312,12 +1313,12 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
     :returns:  a tuple containing Dealer's final score, and a boolean showing if Dealer has a natural Blackjack
     :rtype: self.score: int, natural: bool
     """
-    #the initial dealer's Hand score:
+    # the initial dealer's Hand score:
     dealer_score = dealer.hand.score
-    #checking if Dealer has a Blackjack:
+    # checking if Dealer has a Blackjack:
     dealer_natural = dealer.hand.score == 21
 
-    #checking if human player has played any hands without both a bust or a Natural Blackjack:
+    # checking if human player has played any hands without both a bust or a Natural Blackjack:
     for score, natural in zip(player_score_list, player_natural_list):
 
         if score <= 21 and not natural:
@@ -1329,14 +1330,14 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
 
     if insurance_possible:
 
-        #checking if Dealer's upcard is an Ace and if human player has any chips left::
+        # checking if Dealer's upcard is an Ace and if human player has any chips left::
         if dealer.hand.cards[0].rank == 'A' and player.chips['Amount'] > 0:
             print('\n' * 100)
             # showing dealer's cards one face up, one face down:
             dealer.hand.display_one_face_down('Dealer')
-            #showing human player's cards face up:
+            # showing human player's cards face up:
 
-            #if there are no split hands:
+            # if there are no split hands:
             if len(player.split_hands) == 0:
                 player.hand.display_face_up(player.name)
             else:
@@ -1353,12 +1354,12 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
             print('\n')
             player.display_chips(*player.wagers.keys())
 
-            #asking if human player wants to place an Insurance bet:
+            # asking if human player wants to place an Insurance bet:
             if insurance_requested():
-                #placing the Insurance bet:
+                # placing the Insurance bet:
                 print('\n')
                 player.place_bet('Insurance')
-                #clearing the screen:
+                # clearing the screen:
                 print('\n' * 100)
                 # displaying the updated human player's chips and wagers:
                 player.display_chips('Chips')
@@ -1368,10 +1369,10 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
                 press_enter_to_continue()
 
 
-        #playing Dealer's hand up to soft 17:
+        # playing Dealer's hand up to soft 17:
         dealer_score, dealer_natural = dealer.hand.play_for_dealer(deck)
 
-    #clearing the screen:
+    # clearing the screen:
     print('\n' * 100)
     # showing dealer's cards face up:
     dealer.hand.display_face_up('Dealer')
@@ -1382,14 +1383,14 @@ def dealers_turn(dealer, player, player_score_list, player_natural_list, deck):
         player.hand.display_face_up(player.name)
     else:
 
-        #showing all non-empty Split Hands:
+        # showing all non-empty Split Hands:
         for hand in player.split_hands:
 
             if hand.score > 0:
                 hand.display_face_up(player.name)
 
     print('\n')
-    #returning Dealer's final score and a boolean showing if Dealer has a Blackjack:
+    # returning Dealer's final score and a boolean showing if Dealer has a Blackjack:
     return dealer_score, dealer_natural
 
 def check_outcome_and_add_winnings(player, player_score_list, player_natural_list, player_wager_list, dealer_score,
@@ -1406,13 +1407,13 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
     :return: none
     """
 
-    #if there was no split and just one hand has been played:
+    # if there was no split and just one hand has been played:
     if len(player_score_list) == 1:
 
-        #checking for human player's Blackjack:
+        # checking for human player's Blackjack:
         if player_natural_list[0]:
 
-            #checking for Dealer's Blackjack:
+            # checking for Dealer's Blackjack:
             if not dealer_natural:
                 print (f'{player.name} has won 3:2!')
                 player.add_winnings('3:2', 'Main Wager')
@@ -1423,32 +1424,32 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
         # checking for a bust:
         elif player_score_list[0] > 21:
             print('BUST! House has won!')
-        #checking for Dealer's Blackjack:
+        # checking for Dealer's Blackjack:
         elif dealer_natural:
             print('Dealer has a Blackjack! House has won!')
 
-            #checking if an Insurance bet has been placed:
+            # checking if an Insurance bet has been placed:
             if player.wagers['Insurance'] != empty:
                 print (f"{player.name}'s Insurance bet has won!")
                 player.add_winnings('2:1', 'Insurance')
 
-        #checking for a Dealer bust:
+        # checking for a Dealer bust:
         elif dealer_score > 21:
             print (f'DEALER BUST! {player.name} has won!')
             player.add_winnings('1:1', 'Main Wager')
-        #checking if human player's score is greater than dealer's score:
+        # checking if human player's score is greater than dealer's score:
         elif player_score_list[0] > dealer_score:
             print(f'{player.name} has won!')
             player.add_winnings('1:1', 'Main Wager')
-        #checking for a tie:
+        # checking for a tie:
         elif player_score_list[0] == dealer_score:
             print('TIE!')
             player.add_winnings('Tie', 'Main Wager')
-        #checking if dealer's score is greater than human player's score:
+        # checking if dealer's score is greater than human player's score:
         elif player_score_list[0] < dealer_score:
             print('House has won!')
 
-    #more than 1 hand has been played:
+    # more than 1 hand has been played:
     else:
 
         if dealer_natural:
@@ -1500,7 +1501,7 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
 
 if __name__ == '__main__':
 
-    #game setup:
+    # game setup:
     print('Welcome to the Blackjack Game!')
     plr_name = ask_players_name()
     plr = HumanPlayer(plr_name)
@@ -1510,10 +1511,10 @@ if __name__ == '__main__':
     need_more_chips = True
     first_round = True
 
-    #game cycle:
+    # game cycle:
     while play_again:
 
-        #checking if player needs more chips:
+        # checking if player needs more chips:
         if need_more_chips:
 
             if not first_round and plr.chips['Amount'] == 0:
@@ -1528,7 +1529,7 @@ if __name__ == '__main__':
         else:
             pass
 
-        #shuffling the deck and placing a bet:
+        # shuffling the deck and placing a bet:
         print('\n'*100)
         print('New round!')
         playing_deck = Deck()
@@ -1537,27 +1538,27 @@ if __name__ == '__main__':
         # asking to press enter to continue:
         press_enter_to_continue()
 
-        #creating a "Normal" Hand object for player:
+        # creating a "Normal" Hand object for player:
         plr.start_hand()
 
-        #creating a "Normal" Hand object for dealer:
+        # creating a "Normal" Hand object for dealer:
         dlr.start_hand()
 
-        #dealing initial 2 cards to both player and dealer and displaying the cards
+        # dealing initial 2 cards to both player and dealer and displaying the cards
         plr.hand.add_card_from_deck(playing_deck)
         dlr.hand.add_card_from_deck(playing_deck)
 
         plr.hand.add_card_from_deck(playing_deck)
         dlr.hand.add_card_from_deck(playing_deck)
 
-        #playing a round:
+        # playing a round:
         plr_scores, plr_naturals, plr_wagers, surrender = players_turn(plr, dlr, playing_deck)
 
-        #checking for surrender:
+        # checking for surrender:
         if not surrender:
-            #dealer's turn:
+            # dealer's turn:
             dlr_score, dlr_natural = dealers_turn(dlr, plr, plr_scores, plr_naturals, playing_deck)
-            #checking the outcome and adding winnings:
+            # checking the outcome and adding winnings:
             check_outcome_and_add_winnings(plr, plr_scores, plr_naturals, plr_wagers, dlr_score, dlr_natural)
         else:
             # clearing the screen:
@@ -1572,20 +1573,20 @@ if __name__ == '__main__':
         # displaying the updated human player's chips:
         plr.display_chips('Chips')
 
-        #cleanup after a finished round:
+        # cleanup after a finished round:
         plr.clear_wager()
         plr.split_hands = []
 
-        #checking if player's got any chips, or sufficient bankroll to purchase chips:
+        # checking if player's got any chips, or sufficient bankroll to purchase chips:
 
         if plr.chips['Amount'] == 0 and plr.bankroll < 1:
             break
         else:
-            #asking if player wants to play again
+            # asking if player wants to play again
             play_again = replay()
 
             if play_again:
-                #checking if cheque change is needed
+                # checking if cheque change is needed
                 exchange_possible, high_value_color = plr.cheque_change_possible()
 
                 if exchange_possible:
@@ -1593,7 +1594,7 @@ if __name__ == '__main__':
                     if cheque_change_requested(high_value_color):
                         plr.cheque_change(high_value_color)
 
-                #checking if player needs more chips
+                # checking if player needs more chips
                 if plr.chips['Amount'] == 0:
                     need_more_chips = True
                 elif plr.bankroll < 1:
