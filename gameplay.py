@@ -343,8 +343,8 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
                 print (f'{player.name} has won 3:2!')
                 player.add_winnings('3:2', 'Main Wager')
             else:
-                print ('Dealer has a Blackjack too! TIE!')
-                player.add_winnings('Tie', 'Main Wager')
+                print ('Dealer has a Blackjack too! PUSH!')
+                player.add_winnings('Push', 'Main Wager')
 
         # checking for a bust:
         elif player_score_list[0] > 21:
@@ -368,8 +368,8 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
             player.add_winnings('1:1', 'Main Wager')
         # checking for a tie:
         elif player_score_list[0] == dealer_score:
-            print('TIE!')
-            player.add_winnings('Tie', 'Main Wager')
+            print('PUSH!')
+            player.add_winnings('Push', 'Main Wager')
         # checking if dealer's score is greater than human player's score:
         elif player_score_list[0] < dealer_score:
             print('House has won!')
@@ -397,8 +397,8 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
                     print(f"{player.name}'s {wager} has won 3:2!")
                     player.add_winnings('3:2', wager)
                 else:
-                    print(f"{player.name}'s {wager} has TIED!")
-                    player.add_winnings('Tie', wager)
+                    print(f"PUSH on {player.name}'s {wager}!")
+                    player.add_winnings('Push', wager)
 
             # checking for Dealer's Blackjack:
             elif dealer_natural:
@@ -417,8 +417,8 @@ def check_outcome_and_add_winnings(player, player_score_list, player_natural_lis
                 player.add_winnings('1:1', wager)
             # checking for a tie:
             elif score == dealer_score:
-                print(f"{player.name}'s {wager} has TIED!")
-                player.add_winnings('Tie', wager)
+                print(f"PUSH on {player.name}'s {wager}!")
+                player.add_winnings('Push', wager)
             # checking if dealer's score is greater than human player's score:
             elif score < dealer_score:
                 print(f"House has won {player.name}'s {wager}!")

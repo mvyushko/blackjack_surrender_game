@@ -8,7 +8,7 @@ from card_related_classes import Hand, RESET
 EMPTY = {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}
 
 # dictionary containing all possible payout coefficients:
-PAYOUT_COEFFS = {'1:1': 1, '2:1': 2, '3:2': 1.5, 'Tie': 0}
+PAYOUT_COEFFS = {'1:1': 1, '2:1': 2, '3:2': 1.5, 'Push': 0}
 
 # dictionary containing pairs of split_hand_number attributes assigned to newly created split hands,  depending on which
 # hand they come from.
@@ -415,7 +415,7 @@ class HumanPlayer(Player):
     def add_winnings(self, payout, bet):
         """
         Adds chips HumanPlayer has won to HumanPlayer's chips
-        :param payout: payout on the winning wager. Possible values: "1:1", "3:2", "2:1", "Tie".
+        :param payout: payout on the winning wager. Possible values: "1:1", "3:2", "2:1", "Push".
         :type payout: str
         :param bet: HumanPlayer's winning wager name. Possible values: "Main Wager", "Split Wager 1", "Split Wager 2",
          "Split Wager 3", "Insurance".

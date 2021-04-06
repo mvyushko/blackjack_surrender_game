@@ -122,9 +122,9 @@ class TestPayout(unittest.TestCase):
         self.assertEqual(result_chips, {'White': 5, 'Pink': 1, 'Red': 4, 'Green': 0, 'Orange': 0, 'Amount': 27.5})
         self.assertEqual(result_wager, {'White': 2, 'Pink': 0, 'Red': 2, 'Green': 0, 'Orange': 0, 'Amount': 12})
 
-    def test_payout_tie_1_1(self):
+    def test_payout_push_1_1(self):
         """
-        testing the tie payout with 1 White and 1 pink chips in HumanPlayer's chip pile and 1 White and 1 Red in
+        testing the push payout with 1 White and 1 pink chips in HumanPlayer's chip pile and 1 White and 1 Red in
          HumanPlayer's wager
         """
         player = HumanPlayer('Masha')
@@ -142,7 +142,7 @@ class TestPayout(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips):
-        player.add_winnings('Tie', 'Main Wager')
+        player.add_winnings('Push', 'Main Wager')
         result_chips = player.chips
         result_wager = player.wagers['Main Wager']
         self.assertEqual(result_chips, {'White': 2, 'Pink': 1, 'Red': 1, 'Green': 0, 'Orange': 0, 'Amount': 9.5})
@@ -154,9 +154,9 @@ class TestPayout(unittest.TestCase):
         result_clr_wager = player.wagers['Main Wager']
         self.assertEqual(result_clr_wager, {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0})
 
-    def test_payout_tie_1_2(self):
+    def test_payout_push_1_2(self):
         """
-        Testing the tie payout with 1 White and 1 pink chips in HumanPlayer's chip pile and 2 White and 2 Red in
+        Testing the push payout with 1 White and 1 pink chips in HumanPlayer's chip pile and 2 White and 2 Red in
         HumanPlayer's wager
         """
         player = HumanPlayer('Masha')
@@ -174,7 +174,7 @@ class TestPayout(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips):
-        player.add_winnings('Tie', 'Main Wager')
+        player.add_winnings('Push', 'Main Wager')
         result_chips = player.chips
         result_wager = player.wagers['Main Wager']
         self.assertEqual(result_chips, {'White': 3, 'Pink': 1, 'Red': 2, 'Green': 0, 'Orange': 0, 'Amount': 15.5})
@@ -367,9 +367,9 @@ class TestPayout(unittest.TestCase):
         self.assertEqual(result_chips, {'White': 5, 'Pink': 1, 'Red': 4, 'Green': 0, 'Orange': 0, 'Amount': 27.5})
         self.assertEqual(result_wager, {'White': 2, 'Pink': 0, 'Red': 2, 'Green': 0, 'Orange': 0, 'Amount': 12})
 
-    def test_payout_tie_1_1_split(self):
+    def test_payout_push_1_1_split(self):
         """
-        Testing the tie payout on Split Wager 2 with 1 White and 1 pink chips in HumanPlayer's chip pile, 1 White and 1
+        Testing the push payout on Split Wager 2 with 1 White and 1 pink chips in HumanPlayer's chip pile, 1 White and 1
         Red in HumanPlayer's Main wager, and 1 White and 1 Red in HumanPlayer's Split wager 2
         """
         player = HumanPlayer('Masha')
@@ -388,7 +388,7 @@ class TestPayout(unittest.TestCase):
                          'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips)
-        player.add_winnings('Tie', 'Split Wager 2')
+        player.add_winnings('Push', 'Split Wager 2')
         result_chips = player.chips
         result_wager = player.wagers['Split Wager 2']
         self.assertEqual(result_chips, {'White': 2, 'Pink': 1, 'Red': 1, 'Green': 0, 'Orange': 0, 'Amount': 9.5})
@@ -402,9 +402,9 @@ class TestPayout(unittest.TestCase):
         self.assertEqual(result_clr_main_wager, {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0})
         self.assertEqual(result_clr_split2, {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0})
 
-    def test_payout_tie_1_2_split(self):
+    def test_payout_push_1_2_split(self):
         """
-        Testing the tie payout on Split wager 3 with 1 White and 1 pink chips in HumanPlayer's chip pile, 1 White and 1
+        Testing the push payout on Split wager 3 with 1 White and 1 pink chips in HumanPlayer's chip pile, 1 White and 1
         Red in HumanPlayer's Main wager, and 2 White and 2 Red in HumanPlayer's Split wager 3
         """
         player = HumanPlayer('Masha')
@@ -423,7 +423,7 @@ class TestPayout(unittest.TestCase):
                                            'Amount': test_wager_amount * 2}}
 
         # testing the add_winnings(self, payout, bet) method (adding the won chips to HumanPlayer's chips):
-        player.add_winnings('Tie', 'Split Wager 3')
+        player.add_winnings('Push', 'Split Wager 3')
         result_chips = player.chips
         result_wager = player.wagers['Split Wager 3']
         self.assertEqual(result_chips, {'White': 3, 'Pink': 1, 'Red': 2, 'Green': 0, 'Orange': 0, 'Amount': 15.5})

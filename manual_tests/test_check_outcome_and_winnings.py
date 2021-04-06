@@ -18,6 +18,6 @@ plr.wagers = {'Main Wager': {'White': 1, 'Pink': 0, 'Red': 1, 'Green': 0, 'Orang
                  'Split Wager 3': {'White': 0, 'Pink': 0, 'Red': 0, 'Green': 0, 'Orange': 0, 'Amount': 0}}
 
 check_outcome_and_add_winnings(plr, [22, 20, 22], [False, False, False],
-                               ['Main Wager', 'Split Wager 2', 'Split Wager 1'], 17, False)
+                               ['Main Wager', 'Split Wager 2', 'Split Wager 1'], 20, False)
 
 print(plr.chips)
