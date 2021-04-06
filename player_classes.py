@@ -524,8 +524,8 @@ class HumanPlayer(Player):
         self.display_chips('Chips')
         # displaying one high-value chip and 10 smaller-value chips it can be exchanged to:
         print(f"\nand {self.name}'s chip to exchange:")
-        print(f'{CHIP_SYMBOLS[color]} ✕ {CHIP_VALUES[color]:5.2f}  =  ' + f'{CHIP_SYMBOLS[new_color]}' * 10 +
-              f' ✕ {CHIP_VALUES[new_color]:5.2f}\n' + RESET)
+        print(f'{CHIP_SYMBOLS[color]} x {CHIP_VALUES[color]:5.2f}' + RESET + '  =  ' +
+              f'{CHIP_SYMBOLS[new_color]}' * 10 + f' x {CHIP_VALUES[new_color]:5.2f}\n' + RESET)
 
         choice = 'None'
 
